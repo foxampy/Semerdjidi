@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ru" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>EthOSium — Операционная Система Здоровья и Человеческого Потенциала</title>
+    <meta name="description" content="EthOSium: Твое здоровье — твой Ethos — твоя операционная система. 8 векторов квазикристаллического гомеостаза, холистическое здоровье (тело, разум, душа, психика), горные ретриты и оздоровительные центры, суверенный ИИ-проводник Polaris и модули для профессионалов и бизнеса." />
+    <meta property="og:title" content="EthOSium — Операционная Система Здоровья и Человеческого Потенциала" />
+    <meta property="og:description" content="EthOSium: Твое здоровье — твой Ethos — твоя операционная система. 8 векторов квазикристаллического гомеостаза, холистическое здоровье (тело, разум, душа, психика), горные ретриты и оздоровительные центры, суверенный ИИ-проводник Polaris и модули для профессионалов и бизнеса." />
+    <meta property="og:type" content="website" />
+    
+    <!-- PWA Meta & Icons -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#404432" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="EthOSium" />
+    <link rel="icon" type="image/svg+xml" href="/icon-192.svg" />
+    <link rel="apple-touch-icon" href="/icon-192.svg" />
+
+    <!-- Telegram WebApp SDK Integration -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+    <!-- Google Fonts: Playfair Display, Manrope, Plus Jakarta Sans, Cinzel, Material Symbols Outlined -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-[#404432] text-[#F0E2C8] font-sans antialiased selection:bg-[#BA9470]/30 selection:text-[#F0E2C8]">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // Register Service Worker for PWA
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(err => {
+            console.log('SW registration error:', err);
+          });
+        });
+      }
+
+      // Initialize Telegram WebApp if available
+      if (window.Telegram && window.Telegram.WebApp) {
+        try {
+          window.Telegram.WebApp.ready();
+          window.Telegram.WebApp.expand();
+          window.Telegram.WebApp.setHeaderColor('#404432');
+          window.Telegram.WebApp.setBackgroundColor('#404432');
+        } catch (e) {
+          console.warn('Telegram WebApp init note:', e);
+        }
+      }
+    </script>
+  </body>
+</html>

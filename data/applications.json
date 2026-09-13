@@ -1,0 +1,39 @@
+[
+  {
+    "id": "APP-CHIMGAN-001",
+    "type": "retreat_chimgan",
+    "name": "Михаил Токарев",
+    "contact": "@tokarev_dev",
+    "format": "standard",
+    "details": "24ч ретрит перезагрузки 19-20 сентября. Предоплата 50% ($93.75) со скидкой.",
+    "status": "approved",
+    "amountUsd": 187.5,
+    "promoCode": "PRE-ETHOS-50",
+    "createdAt": "05.09.2026, 14:30",
+    "adminNotes": "Трансфер из Ташкента подтвержден."
+  },
+  {
+    "id": "APP-CHIMGAN-002",
+    "type": "retreat_chimgan",
+    "name": "Анна Захарова",
+    "contact": "anna.zakharova@gmail.com",
+    "format": "vip",
+    "details": "VIP пакет с личной супервизией Екатерины Семерджиди.",
+    "status": "new",
+    "amountUsd": 495,
+    "promoCode": "VIP-CHIMGAN",
+    "createdAt": "06.09.2026, 18:15",
+    "adminNotes": "Ожидает созвона с куратором."
+  },
+  {
+    "id": "APP-EXP-003",
+    "type": "expert_session",
+    "name": "Алишер Каримов",
+    "contact": "+998901234567",
+    "format": "online",
+    "details": "Запрос на стратегическую сессию по психологической устойчивости команды.",
+    "status": "in_review",
+    "amountUsd": 150,
+    "createdAt": "06.09.2026, 20:00"
+  }
+]

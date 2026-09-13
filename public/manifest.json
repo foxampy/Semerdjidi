@@ -1,0 +1,27 @@
+{
+  "id": "/",
+  "name": "Семерджиди — Пространство Осознания",
+  "short_name": "Семерджиди",
+  "description": "Экосистема психологического центра Семерджиди: ретриты FRACTAL, каталог специалистов, воркбуки, психологическая аудиотека и экспедиционные программы.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#404432",
+  "theme_color": "#404432",
+  "categories": ["lifestyle", "health", "education"],
+  "icons": [
+    {
+      "src": "/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

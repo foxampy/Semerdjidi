@@ -1,0 +1,46 @@
+[
+  {
+    "id": "ETH-ADM-TIMUR",
+    "name": "Тимур (Суперадминистратор)",
+    "emailOrTg": "timursama96@gmail.com",
+    "role": "Суперадминистратор & Архитектор Экосистемы",
+    "contour": "both",
+    "provider": "email",
+    "registeredAt": "01.09.2026",
+    "hasDiscount19Sep": true,
+    "isAdmin": true,
+    "adminRole": "superadmin",
+    "archetype": "Интегратор Систем и Смыслов (EthOSium Nexus)",
+    "testScoreSummary": "Суперадминистратор • Полный доступ ко всем контурам и базам данных"
+  },
+  {
+    "id": "ETH-ADM-FOXAMPY",
+    "name": "Foxampy (Главный Администратор)",
+    "emailOrTg": "foxampy@gmail.com",
+    "role": "Главный Администратор & Архитектор Экосистемы",
+    "contour": "both",
+    "provider": "email",
+    "registeredAt": "01.09.2026",
+    "hasDiscount19Sep": true,
+    "isAdmin": true,
+    "adminRole": "superadmin",
+    "archetype": "Интегратор Систем и Смыслов (EthOSium Nexus)",
+    "testScoreSummary": "Суперадминистратор • Полный доступ ко всем контурам и базам данных"
+  },
+  {
+    "id": "ETH-GOO-D42E1B",
+    "name": "Test Google",
+    "emailOrTg": "test@google.com",
+    "role": "Предприниматель / Лидер проектов",
+    "contour": "both",
+    "provider": "google",
+    "providerId": "123",
+    "avatar": "",
+    "archetype": "Интегратор Систем и Смыслов (EthOSium Nexus)",
+    "testScoreSummary": "OAuth Авторизация • Полный доступ",
+    "registeredAt": "07.09.2026",
+    "hasDiscount19Sep": true,
+    "isAdmin": false,
+    "retreatPreRegistration": null
+  }
+]
