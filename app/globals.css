@@ -1,0 +1,159 @@
+@import 'tailwindcss';
+
+/*
+ * Токены взяты из DESIGN.md ("Deep Forest Biomorphic & Contemplative
+ * Science") и сверены построчно с уже одобренными и задеплоенными HTML-
+ * макетами (2.html) — расхождений нет, это единственный источник правды
+ * для цвета и типографики веб-приложения. Файлы брендбука (OrchideaPro,
+ * Raleway, TenorSans) относятся к печатной айдентике и логотипу, здесь не
+ * используются.
+ */
+@theme {
+  --color-surface: #191305;
+  --color-surface-dim: #191305;
+  --color-surface-bright: #403826;
+  --color-surface-container-lowest: #130d02;
+  --color-surface-container-low: #211b0b;
+  --color-surface-container: #261f0f;
+  --color-surface-container-high: #302918;
+  --color-surface-container-highest: #3c3422;
+  --color-on-surface: #efe1c7;
+  --color-on-surface-variant: #c7c7ba;
+  --color-inverse-surface: #efe1c7;
+  --color-inverse-on-surface: #37301e;
+  --color-outline: #909286;
+  --color-outline-variant: #46483e;
+
+  --color-primary: #c4d0a3;
+  --color-on-primary: #2b3414;
+  --color-primary-container: #a9b489;
+  --color-on-primary-container: #3d4624;
+
+  --color-secondary: #e9bf98;
+  --color-on-secondary: #442b0f;
+  --color-secondary-container: #5e4123;
+  --color-on-secondary-container: #d6ae88;
+
+  --color-tertiary: #c9cdb5;
+  --color-on-tertiary: #2e3221;
+  --color-tertiary-container: #adb19a;
+  --color-on-tertiary-container: #404432;
+
+  --color-error: #ffb4ab;
+  --color-on-error: #690005;
+
+  --color-background: #191305;
+  --color-on-background: #efe1c7;
+  --color-surface-variant: #3c3422;
+
+  /* Пять исходных брендбук-цветов — используются точечно (логотип, акценты) */
+  --color-brand-olive: #404432;
+  --color-brand-sage: #a9b489;
+  --color-brand-linen: #f0e2c8;
+  --color-brand-clay: #ba9470;
+  --color-brand-umber: #503428;
+
+  --font-display: 'Newsreader', Georgia, serif;
+  --font-body: 'Newsreader', Georgia, serif;
+  --font-label: 'Space Mono', ui-monospace, monospace;
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+
+  --tracking-label: 0.1em;
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-on-background);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-primary-container) 35%, transparent);
+    color: var(--color-on-background);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer utilities {
+  .label-caps {
+    font-family: var(--font-label);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+  }
+
+  /* Порстая тектоническая карточка — базовая поверхность контента */
+  .surface-card {
+    background: linear-gradient(
+      165deg,
+      color-mix(in srgb, var(--color-surface-container) 96%, transparent),
+      color-mix(in srgb, var(--color-surface-container-low) 96%, transparent)
+    );
+    border: 1px solid color-mix(in srgb, var(--color-outline-variant) 70%, transparent);
+    border-radius: var(--radius-lg);
+  }
+
+  /* Мягкое биолюминесцентное свечение по ховеру интерактивных узлов */
+  .glow-moss:hover {
+    box-shadow: 0 0 24px color-mix(in srgb, var(--color-primary-container) 30%, transparent);
+  }
+
+  .hairline {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in srgb, var(--color-primary-container) 45%, transparent) 50%,
+      transparent
+    );
+    height: 1px;
+  }
+
+  .btn-primary {
+    background-color: var(--color-primary-container);
+    color: var(--color-on-primary-container);
+    border: 1px solid color-mix(in srgb, var(--color-primary) 60%, transparent);
+    border-radius: 9999px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .btn-primary:hover {
+    box-shadow: 0 0 24px color-mix(in srgb, var(--color-primary-container) 35%, transparent);
+  }
+
+  .btn-ghost {
+    background-color: transparent;
+    color: var(--color-on-surface);
+    border: 1px solid color-mix(in srgb, var(--color-secondary-container) 55%, transparent);
+    border-radius: 9999px;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+  }
+  .btn-ghost:hover {
+    border-color: var(--color-secondary);
+    background-color: color-mix(in srgb, var(--color-secondary-container) 25%, transparent);
+  }
+}
