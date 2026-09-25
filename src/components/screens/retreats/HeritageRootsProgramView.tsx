@@ -109,7 +109,7 @@ export const HeritageRootsProgramView: React.FC<HeritageRootsProgramViewProps> =
   const [applicantContact, setApplicantContact] = useState(currentUser?.emailOrTg || '');
   const [applicantCity, setApplicantCity] = useState('');
   const [applicantAge, setApplicantAge] = useState('24');
-  const [programTrack, setProgramTrack] = useState<'taglit_expedition' | 'masa_residency'>('taglit_expedition');
+  const [programTrack, setProgramTrack] = useState<'tamir_1week' | 'safar_makon_2weeks' | 'ulug_yol_6months'>('tamir_1week');
   const [fundingCategory, setFundingCategory] = useState<'youth_grant_100' | 'project_grant_70' | 'self_funded_patron'>('youth_grant_100');
   const [motivationText, setMotivationText] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -136,8 +136,8 @@ export const HeritageRootsProgramView: React.FC<HeritageRootsProgramViewProps> =
         type: 'general',
         name: applicantName.trim(),
         contact: applicantContact.trim(),
-        format: programTrack === 'taglit_expedition' ? 'taglit_expedition' : 'masa_residency',
-        details: `Программа Корней: ${selectedRoute.title}. Категория: ${fundingCategory}. Эссе: ${motivationText || '—'}`,
+        format: programTrack === 'tamir_1week' ? 'taglit_expedition' : 'masa_residency',
+        details: `Программа Корней: ${selectedRoute.title}. Трек: ${programTrack}. Категория: ${fundingCategory}. Эссе: ${motivationText || '—'}`,
         selectedModules: [programTrack, fundingCategory, selectedRoute.id],
         questionnaire: {
           mainIntention: motivationText || 'Исследование родовой памяти и культурных корней',
@@ -278,95 +278,146 @@ export const HeritageRootsProgramView: React.FC<HeritageRootsProgramViewProps> =
             </p>
           </div>
 
-          {/* Two Distinct Formats Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Format 1: Taglit Expedition */}
-            <div className="neu-card p-5 sm:p-6 rounded-3xl border border-emerald-500/30 bg-gradient-to-b from-[#373c2a] to-[#323625] space-y-3 relative">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 font-bold px-2.5 py-0.5 rounded-full neu-inset border border-emerald-500/30">
-                  Формат 1 • Краткосрочный
-                </span>
-                <span className="text-xs font-bold text-[#F0E2C8]">7 – 10 Дней</span>
-              </div>
-
-              <h2 className="font-headline font-bold text-xl text-[#F0E2C8] flex items-center gap-2">
-                <span className="material-symbols-outlined text-emerald-400 text-[24px]">travel_explore</span>
-                Таглит-Экспедиция: Погружение в Корни
-              </h2>
-
-              <p className="text-xs text-[#E2ECD2]/85 leading-relaxed">
-                Интенсивное культурно-исследовательское путешествие для молодежи (18–35 лет) и исследователей родовой памяти.
-              </p>
-
-              <div className="space-y-2 pt-2 border-t border-[#A9B489]/15 text-xs text-[#E2ECD2]/80">
-                <div className="flex items-start gap-2">
-                  <span className="material-symbols-outlined text-[16px] text-emerald-400 shrink-0 mt-0.5">check</span>
-                  <span><strong>50%–100% покрытие расходов:</strong> субсидируется грантовым фондом экосистемы и меценатами.</span>
+          {/* Three Distinct Formats Grid: 1 Week / 2 Weeks / 6 Months */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Format 1: 1 Week - Tamir */}
+            <div className="neu-card p-5 rounded-3xl border border-emerald-500/30 bg-gradient-to-b from-[#373c2a] to-[#323625] space-y-3 relative flex flex-col justify-between">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 font-bold px-2.5 py-0.5 rounded-full neu-inset border border-emerald-500/30">
+                    Аналог Таглит • 1 Неделя
+                  </span>
+                  <span className="text-xs font-bold text-[#F0E2C8]">7 – 8 Дней</span>
                 </div>
-                <div className="flex items-start gap-2">
-                  <span className="material-symbols-outlined text-[16px] text-emerald-400 shrink-0 mt-0.5">check</span>
-                  <span><strong>Полевой дневник &amp; рефлексия:</strong> ежедневные записи, диалоги у костра с историками и мыслителями.</span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <span className="material-symbols-outlined text-[16px] text-emerald-400 shrink-0 mt-0.5">check</span>
-                  <span><strong>Живой контакт с хранителями:</strong> посещение нетуристических ремесленных и духовных обителей.</span>
+
+                <h2 className="font-headline font-bold text-lg text-[#F0E2C8] flex items-center gap-2">
+                  <span className="material-symbols-outlined text-emerald-400 text-[22px]">travel_explore</span>
+                  «ТАМИР» (Истоки &amp; Корни)
+                </h2>
+
+                <p className="text-xs text-[#E2ECD2]/85 leading-relaxed">
+                  Интенсивное культурно-исследовательское погружение для молодежи (18–35 лет) и исследователей родовой памяти.
+                </p>
+
+                <div className="space-y-2 pt-2 border-t border-[#A9B489]/15 text-xs text-[#E2ECD2]/80">
+                  <div className="flex items-start gap-2">
+                    <span className="material-symbols-outlined text-[15px] text-emerald-400 shrink-0 mt-0.5">check</span>
+                    <span><strong>100% грант:</strong> полное покрытие перелета по РУз, юрт и проживания фондом.</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="material-symbols-outlined text-[15px] text-emerald-400 shrink-0 mt-0.5">check</span>
+                    <span><strong>Маршрут:</strong> Ташкент → Самарканд → Бухара → Нурата → Юрты Айдаркуля.</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="material-symbols-outlined text-[15px] text-emerald-400 shrink-0 mt-0.5">check</span>
+                    <span><strong>Полевой дневник:</strong> вечерние диалоги у костра, этносоматика и заземление.</span>
+                  </div>
                 </div>
               </div>
 
               <button
                 onClick={() => {
-                  setProgramTrack('taglit_expedition');
+                  setProgramTrack('tamir_1week');
                   setActiveTab('grant_apply');
                 }}
                 className="w-full mt-3 neu-btn py-2.5 rounded-xl text-xs font-bold text-[#FFFDF8] bg-emerald-700/30 border border-emerald-500/40 hover:bg-emerald-700/40 flex items-center justify-center gap-1.5"
               >
                 <span className="material-symbols-outlined text-[16px]">edit_document</span>
-                Подать заявку на Таглит-трек
+                Выбрать трек «Тамир» (1 нед)
               </button>
             </div>
 
-            {/* Format 2: Masa Fellowship & Residency */}
-            <div className="neu-card p-5 sm:p-6 rounded-3xl border border-[#BA9470]/50 bg-gradient-to-b from-[#3a3f2b] to-[#323625] space-y-3 relative">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-[#FFCF96] font-bold px-2.5 py-0.5 rounded-full neu-inset border border-[#BA9470]/40">
-                  Формат 2 • Долгосрочный
-                </span>
-                <span className="text-xs font-bold text-[#F0E2C8]">1 – 3 Месяца</span>
-              </div>
-
-              <h2 className="font-headline font-bold text-xl text-[#F0E2C8] flex items-center gap-2">
-                <span className="material-symbols-outlined text-[#FFCF96] text-[24px]">diversity_2</span>
-                Маса-Резиденция: Исследовательский Fellowship
-              </h2>
-
-              <p className="text-xs text-[#E2ECD2]/85 leading-relaxed">
-                Глубокая стажировка и жизнь в резиденции с проектной работой в R&amp;D лаборатории LabForge и Институте EthOSium.
-              </p>
-
-              <div className="space-y-2 pt-2 border-t border-[#A9B489]/15 text-xs text-[#E2ECD2]/80">
-                <div className="flex items-start gap-2">
-                  <span className="material-symbols-outlined text-[16px] text-[#BA9470] shrink-0 mt-0.5">check</span>
-                  <span><strong>Стипендия &amp; проживание:</strong> грантовая стипендия на исследовательские проекты и жизнь в резиденции.</span>
+            {/* Format 2: 2 Weeks - Safar-Makon */}
+            <div className="neu-card p-5 rounded-3xl border border-[#BA9470]/40 bg-gradient-to-b from-[#383d2a] to-[#323625] space-y-3 relative flex flex-col justify-between">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-[#FFCF96] font-bold px-2.5 py-0.5 rounded-full neu-inset border border-[#BA9470]/40">
+                    Аналог Маса • 2 Недели
+                  </span>
+                  <span className="text-xs font-bold text-[#F0E2C8]">14 Дней</span>
                 </div>
-                <div className="flex items-start gap-2">
-                  <span className="material-symbols-outlined text-[16px] text-[#BA9470] shrink-0 mt-0.5">check</span>
-                  <span><strong>Менторство Екатерины Семерджиди:</strong> регулярные кураторские разборы и совместные публикации.</span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <span className="material-symbols-outlined text-[16px] text-[#BA9470] shrink-0 mt-0.5">check</span>
-                  <span><strong>Интеграция в LabForge:</strong> создание цифровых решений, методологий и культурных артефактов.</span>
+
+                <h2 className="font-headline font-bold text-lg text-[#F0E2C8] flex items-center gap-2">
+                  <span className="material-symbols-outlined text-[#FFCF96] text-[22px]">explore</span>
+                  «САФАР-МАКОН» (Родная Земля)
+                </h2>
+
+                <p className="text-xs text-[#E2ECD2]/85 leading-relaxed">
+                  Полный золотой круг Шелкового пути: гончарные династии Риштана, древняя Хива, шелк Маргилана и суфийские макомы.
+                </p>
+
+                <div className="space-y-2 pt-2 border-t border-[#A9B489]/15 text-xs text-[#E2ECD2]/80">
+                  <div className="flex items-start gap-2">
+                    <span className="material-symbols-outlined text-[15px] text-[#BA9470] shrink-0 mt-0.5">check</span>
+                    <span><strong>Грант до 80%:</strong> стипендиальное софинансирование для диаспоры и ученых.</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="material-symbols-outlined text-[15px] text-[#BA9470] shrink-0 mt-0.5">check</span>
+                    <span><strong>Маршрут:</strong> Ферганская долина → Самарканд → Бухара → Ичан-Кала (Хива).</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="material-symbols-outlined text-[15px] text-[#BA9470] shrink-0 mt-0.5">check</span>
+                    <span><strong>Практика в мастерских:</strong> живое ремесло и исследование родовой идентичности.</span>
+                  </div>
                 </div>
               </div>
 
               <button
                 onClick={() => {
-                  setProgramTrack('masa_residency');
+                  setProgramTrack('safar_makon_2weeks');
                   setActiveTab('grant_apply');
                 }}
                 className="w-full mt-3 neu-btn py-2.5 rounded-xl text-xs font-bold text-[#FFFDF8] bg-[#BA9470]/30 border border-[#BA9470] hover:bg-[#BA9470]/40 flex items-center justify-center gap-1.5"
               >
+                <span className="material-symbols-outlined text-[16px]">edit_document</span>
+                Выбрать «Сафар-Макон» (2 нед)
+              </button>
+            </div>
+
+            {/* Format 3: Half-Year - Ulug' Yo'l */}
+            <div className="neu-card p-5 rounded-3xl border border-cyan-500/40 bg-gradient-to-b from-[#3a3f2b] to-[#323625] space-y-3 relative flex flex-col justify-between">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-cyan-400 font-bold px-2.5 py-0.5 rounded-full neu-inset border border-cyan-500/30">
+                    Fellowship • Полгода
+                  </span>
+                  <span className="text-xs font-bold text-[#F0E2C8]">6 Месяцев</span>
+                </div>
+
+                <h2 className="font-headline font-bold text-lg text-[#F0E2C8] flex items-center gap-2">
+                  <span className="material-symbols-outlined text-cyan-400 text-[22px]">diversity_2</span>
+                  «УЛУГ-ЙУЛ» (Великий Путь)
+                </h2>
+
+                <p className="text-xs text-[#E2ECD2]/85 leading-relaxed">
+                  Полгода жизни и исследовательской резиденции в горных поселках EthOSium, работа в R&amp;D Lab и Институте Авиценны.
+                </p>
+
+                <div className="space-y-2 pt-2 border-t border-[#A9B489]/15 text-xs text-[#E2ECD2]/80">
+                  <div className="flex items-start gap-2">
+                    <span className="material-symbols-outlined text-[15px] text-cyan-400 shrink-0 mt-0.5">check</span>
+                    <span><strong>Стипендия &amp; шале:</strong> ежемесячная стипендия и автономное жилье в экопоселке.</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="material-symbols-outlined text-[15px] text-cyan-400 shrink-0 mt-0.5">check</span>
+                    <span><strong>R&amp;D лаборатория:</strong> восточная медицина Ибн Сины, фитотерапия и соматика.</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="material-symbols-outlined text-[15px] text-cyan-400 shrink-0 mt-0.5">check</span>
+                    <span><strong>Защита проекта:</strong> запуск собственного продукта или методического модуля.</span>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                onClick={() => {
+                  setProgramTrack('ulug_yol_6months');
+                  setActiveTab('grant_apply');
+                }}
+                className="w-full mt-3 neu-btn py-2.5 rounded-xl text-xs font-bold text-[#FFFDF8] bg-cyan-700/30 border border-cyan-500/40 hover:bg-cyan-700/40 flex items-center justify-center gap-1.5"
+              >
                 <span className="material-symbols-outlined text-[16px]">hub</span>
-                Подать на Маса-Fellowship
+                Подать на «Улуг-Йул» (Полгода)
               </button>
             </div>
           </div>
@@ -541,38 +592,55 @@ export const HeritageRootsProgramView: React.FC<HeritageRootsProgramViewProps> =
                 <label className="text-xs font-mono uppercase font-bold text-[#BA9470]">
                   2. Выберите Формат Участия:
                 </label>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div
-                    onClick={() => setProgramTrack('taglit_expedition')}
+                    onClick={() => setProgramTrack('tamir_1week')}
                     className={`p-3.5 rounded-2xl neu-card border cursor-pointer transition-all ${
-                      programTrack === 'taglit_expedition'
+                      programTrack === 'tamir_1week'
                         ? 'border-emerald-500 bg-emerald-950/20 text-emerald-300'
                         : 'border-[#A9B489]/20 text-[#A9B489]'
                     }`}
                   >
                     <div className="font-bold text-xs flex items-center gap-1.5">
-                      <span className="material-symbols-outlined text-[18px]">travel_explore</span>
-                      Таглит-Экспедиция (7-10 дней)
+                      <span className="material-symbols-outlined text-[16px]">travel_explore</span>
+                      «Тамир» (1 нед)
                     </div>
                     <p className="text-[11px] text-[#E2ECD2]/75 mt-1">
-                      Интенсивное погружение в полевые условия, историческую память и практики заземления.
+                      Аналог Таглит. 7–8 дней по ключевым святыням и оазисам. Грант 100%.
                     </p>
                   </div>
 
                   <div
-                    onClick={() => setProgramTrack('masa_residency')}
+                    onClick={() => setProgramTrack('safar_makon_2weeks')}
                     className={`p-3.5 rounded-2xl neu-card border cursor-pointer transition-all ${
-                      programTrack === 'masa_residency'
+                      programTrack === 'safar_makon_2weeks'
                         ? 'border-[#BA9470] bg-[#3a3e2b] text-[#FFCF96]'
                         : 'border-[#A9B489]/20 text-[#A9B489]'
                     }`}
                   >
                     <div className="font-bold text-xs flex items-center gap-1.5">
-                      <span className="material-symbols-outlined text-[18px]">hub</span>
-                      Маса-Резиденция &amp; Fellowship (1-3 мес)
+                      <span className="material-symbols-outlined text-[16px]">explore</span>
+                      «Сафар-Макон» (2 нед)
                     </div>
                     <p className="text-[11px] text-[#E2ECD2]/75 mt-1">
-                      Проживание в резиденции, исследовательская стипендия и менторство проекта в LabForge.
+                      Аналог Маса 14 дней. Золотой круг Шелкового пути и мастерские ремесел.
+                    </p>
+                  </div>
+
+                  <div
+                    onClick={() => setProgramTrack('ulug_yol_6months')}
+                    className={`p-3.5 rounded-2xl neu-card border cursor-pointer transition-all ${
+                      programTrack === 'ulug_yol_6months'
+                        ? 'border-cyan-500 bg-cyan-950/25 text-cyan-300'
+                        : 'border-[#A9B489]/20 text-[#A9B489]'
+                    }`}
+                  >
+                    <div className="font-bold text-xs flex items-center gap-1.5">
+                      <span className="material-symbols-outlined text-[16px]">hub</span>
+                      «Улуг-Йул» (Полгода)
+                    </div>
+                    <p className="text-[11px] text-[#E2ECD2]/75 mt-1">
+                      6-месячный Fellowship в экопоселке, стипендия, лаборатория R&amp;D.
                     </p>
                   </div>
                 </div>

@@ -11,6 +11,9 @@ import { MountainCentersSection } from './retreats/MountainCentersSection';
 import { SoloRetreatPlannerModal } from './retreats/SoloRetreatPlannerModal';
 import { ProfessionalHubView } from './retreats/ProfessionalHubView';
 import { CorporateBusinessView } from './retreats/CorporateBusinessView';
+import { DevelopmentSettlementsView } from './retreats/DevelopmentSettlementsView';
+import { SpecializedTherapyProgramsView } from './retreats/SpecializedTherapyProgramsView';
+import { ExpeditionsAndOutdoorView } from './retreats/ExpeditionsAndOutdoorView';
 
 interface RetreatsScreenProps {
   onNavigate: (screen: ActiveScreen) => void;
@@ -29,7 +32,7 @@ const RETREAT_CATALOG = [
     spotsLeft: 7,
     discountBadge: 'Конструктор: от $120',
     heroImage: 'chimgan',
-    summary: 'Глубокий психологический и психоаналитический контур самопознания в Чимгане под руководством Екатерины Семерджиди: деконструкция гиперконтроля, юнгианская работа с Тенью, иппотерапия-зеркало, телесная разгрузка и модули перезагрузки от $120 до $360.'
+    summary: 'Глубокий психологический и психоаналитический контур самопознания в Чимгане с ведущими специалистами EthOSium: деконструкция гиперконтроля, юнгианская работа с Тенью, иппотерапия-зеркало, телесная разгрузка и модули перезагрузки от $120 до $360.'
   },
   {
     id: 'chimgan_sep_2026',
@@ -42,7 +45,7 @@ const RETREAT_CATALOG = [
     spotsLeft: 3,
     discountBadge: '-50% Предрегистрация',
     heroImage: 'chimgan',
-    summary: 'Пешие тропы заземления, конный трек, семинары Екатерины Семерджиди, 3 места на личный разбор с фиксацией в приложении, сапы на закатном Чарваке и рассвет на УАЗах под водопадом.'
+    summary: 'Пешие тропы заземления, конный трек, семинары психологов EthOSium, 3 места на личный разбор с фиксацией в приложении, сапы на закатном Чарваке и рассвет на УАЗах под водопадом.'
   },
   {
     id: 'altay_oct_2026',
@@ -116,14 +119,14 @@ const PROGRAM_MODULES: RetreatModuleItem[] = [
   },
   {
     id: 'lectures_semerdjidi',
-    name: 'Семинарские лекции и практики Екатерины Семерджиди',
+    name: 'Семинарские лекции и психологические практики EthOSium',
     category: 'expert',
-    description: 'Ключевые блоки психологии устойчивости: распознавание зон выгорания, работа с хроническим гиперконтролем и возвращение подлинного контакта со своим телом.',
+    description: 'Ключевые блоки психологии устойчивости от экспертов R&D Центра EthOSium: распознавание зон выгорания, работа с хроническим гиперконтролем и возвращение подлинного контакта со своим телом.',
     priceUsd: 80
   },
   {
     id: 'vip_personal_audit_3slots',
-    name: 'Личный глубокий разбор с Екатериной Семерджиди (только 3 места!)',
+    name: 'Личный глубокий аудит с ведущим психоаналитиком EthOSium (3 места)',
     category: 'expert',
     description: 'Персональная сессия прямо на ретрите с протоколированием в приложении и фиксацией карты работы со специалистами экосистемы. Осталось всего 1 из 3 мест!',
     priceUsd: 190,
@@ -161,9 +164,9 @@ const PROGRAM_MODULES: RetreatModuleItem[] = [
 ];
 
 export const RetreatsScreen: React.FC<RetreatsScreenProps> = ({ onNavigate }) => {
-  // Mode: 'catalog' | 'mountain_centers' | 'solo_planner' | 'pro_hub' | 'b2b_corporate' | 'taglit_masa' | 'configurator' | 'comparison'
+  // Mode: 'catalog' | 'mountain_centers' | 'solo_planner' | 'pro_hub' | 'b2b_corporate' | 'taglit_masa' | 'development_settlements' | 'specialized_programs' | 'expeditions_outdoor' | 'configurator' | 'comparison'
   const [selectedRetreatId, setSelectedRetreatId] = useState<string>('chimgan_modular_15p');
-  const [viewMode, setViewMode] = useState<'catalog' | 'mountain_centers' | 'solo_planner' | 'pro_hub' | 'b2b_corporate' | 'taglit_masa' | 'configurator' | 'comparison'>('catalog');
+  const [viewMode, setViewMode] = useState<'catalog' | 'mountain_centers' | 'solo_planner' | 'pro_hub' | 'b2b_corporate' | 'taglit_masa' | 'development_settlements' | 'specialized_programs' | 'expeditions_outdoor' | 'configurator' | 'comparison'>('catalog');
   const [formatFilter, setFormatFilter] = useState<'all' | 'group' | 'solo' | 'corporate' | 'expedition'>('all');
   const [dimensionFilter, setDimensionFilter] = useState<'all' | 'body' | 'mind' | 'soul' | 'psyche'>('all');
   const [selectedRetreatModal, setSelectedRetreatModal] = useState<RetreatItem | null>(null);
@@ -426,6 +429,42 @@ export const RetreatsScreen: React.FC<RetreatsScreenProps> = ({ onNavigate }) =>
           </button>
 
           <button
+            onClick={() => setViewMode('development_settlements')}
+            className={`text-xs px-2.5 py-1.5 rounded-xl font-semibold flex items-center gap-1 transition-all ${
+              viewMode === 'development_settlements'
+                ? 'neu-pill-active text-amber-300 border border-amber-500/50 ring-1 ring-amber-500/30 shadow-md'
+                : 'text-amber-400 hover:text-amber-300'
+            }`}
+          >
+            <span className="material-symbols-outlined text-[16px]">home_work</span>
+            Застройка Поселков &amp; Отелей
+          </button>
+
+          <button
+            onClick={() => setViewMode('specialized_programs')}
+            className={`text-xs px-2.5 py-1.5 rounded-xl font-semibold flex items-center gap-1 transition-all ${
+              viewMode === 'specialized_programs'
+                ? 'neu-pill-active text-rose-300 border border-rose-500/50 ring-1 ring-rose-500/30 shadow-md'
+                : 'text-rose-400 hover:text-rose-300'
+            }`}
+          >
+            <span className="material-symbols-outlined text-[16px]">family_restroom</span>
+            Спец-Программы
+          </button>
+
+          <button
+            onClick={() => setViewMode('expeditions_outdoor')}
+            className={`text-xs px-2.5 py-1.5 rounded-xl font-semibold flex items-center gap-1 transition-all ${
+              viewMode === 'expeditions_outdoor'
+                ? 'neu-pill-active text-teal-300 border border-teal-500/50 ring-1 ring-teal-500/30 shadow-md'
+                : 'text-teal-400 hover:text-teal-300'
+            }`}
+          >
+            <span className="material-symbols-outlined text-[16px]">explore</span>
+            Экспедиции &amp; Аутдор
+          </button>
+
+          <button
             onClick={() => setViewMode('taglit_masa')}
             className={`text-xs px-2.5 py-1.5 rounded-xl font-semibold flex items-center gap-1 transition-all ${
               viewMode === 'taglit_masa'
@@ -521,6 +560,62 @@ export const RetreatsScreen: React.FC<RetreatsScreenProps> = ({ onNavigate }) =>
                   Solo-Ретриты
                 </div>
                 <div className="text-[10px] text-[#A9B489]">Личное уединение 2-7d</div>
+              </button>
+
+              <button
+                onClick={() => setViewMode('development_settlements')}
+                className="neu-card p-3 rounded-xl border border-amber-500/50 bg-[#383325] text-left hover:border-amber-400 transition-all group"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="material-symbols-outlined text-amber-400 text-[20px]">home_work</span>
+                  <span className="text-[10px] font-mono text-amber-300 font-bold">Девелопмент</span>
+                </div>
+                <div className="text-xs font-bold text-[#FFCF96] mt-1 group-hover:text-amber-300 transition-colors">
+                  Поселки &amp; Отели
+                </div>
+                <div className="text-[10px] text-[#A9B489]">Застройка, дачи, инвестиции</div>
+              </button>
+
+              <button
+                onClick={() => setViewMode('specialized_programs')}
+                className="neu-card p-3 rounded-xl border border-rose-500/50 bg-[#382b2b] text-left hover:border-rose-400 transition-all group"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="material-symbols-outlined text-rose-400 text-[20px]">family_restroom</span>
+                  <span className="text-[10px] font-mono text-rose-300 font-bold">Спец-курсы</span>
+                </div>
+                <div className="text-xs font-bold text-rose-200 mt-1 group-hover:text-rose-300 transition-colors">
+                  Семья, Дети, Аддикции
+                </div>
+                <div className="text-[10px] text-[#A9B489]">Раздельно / Вместе</div>
+              </button>
+
+              <button
+                onClick={() => setViewMode('expeditions_outdoor')}
+                className="neu-card p-3 rounded-xl border border-teal-500/50 bg-[#283633] text-left hover:border-teal-400 transition-all group"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="material-symbols-outlined text-teal-400 text-[20px]">explore</span>
+                  <span className="text-[10px] font-mono text-teal-300 font-bold">Аутдор</span>
+                </div>
+                <div className="text-xs font-bold text-teal-200 mt-1 group-hover:text-teal-300 transition-colors">
+                  Экспедиции &amp; Походы
+                </div>
+                <div className="text-[10px] text-[#A9B489]">Кони, вода, наука, звёзды</div>
+              </button>
+
+              <button
+                onClick={() => setViewMode('taglit_masa')}
+                className="neu-card p-3 rounded-xl border border-[#BA9470]/50 bg-[#343828] text-left hover:border-[#FFCF96] transition-all group"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="material-symbols-outlined text-[#BA9470] text-[20px]">public</span>
+                  <span className="text-[10px] font-mono text-[#FFCF96] font-bold">Гранты</span>
+                </div>
+                <div className="text-xs font-bold text-[#F0E2C8] mt-1 group-hover:text-[#FFCF96] transition-colors">
+                  Таглит &amp; Маса (УЗ)
+                </div>
+                <div className="text-[10px] text-[#A9B489]">Тамир • Сафар • Улуг-Йул</div>
               </button>
 
               <button
@@ -795,6 +890,30 @@ export const RetreatsScreen: React.FC<RetreatsScreenProps> = ({ onNavigate }) =>
         />
       )}
 
+      {/* VIEW: DEVELOPMENT OF ECO-VILLAGES, HOTELS & SANATORIUMS */}
+      {viewMode === 'development_settlements' && (
+        <DevelopmentSettlementsView
+          onBackToCatalog={() => setViewMode('catalog')}
+          onOpenSpecializedPrograms={() => setViewMode('specialized_programs')}
+        />
+      )}
+
+      {/* VIEW: SPECIALIZED THERAPY PROGRAMS (FAMILY, NEURODIVERGENT, ADDICTION) */}
+      {viewMode === 'specialized_programs' && (
+        <SpecializedTherapyProgramsView
+          onBackToCatalog={() => setViewMode('catalog')}
+          onOpenSettlements={() => setViewMode('development_settlements')}
+        />
+      )}
+
+      {/* VIEW: OUTDOOR & SCIENTIFIC EXPEDITIONS */}
+      {viewMode === 'expeditions_outdoor' && (
+        <ExpeditionsAndOutdoorView
+          onBackToCatalog={() => setViewMode('catalog')}
+          onOpenSettlements={() => setViewMode('development_settlements')}
+        />
+      )}
+
       {/* VIEW 3: COMPARISON VIEW */}
       {viewMode === 'comparison' && (
         <ModelComparisonView
@@ -879,7 +998,7 @@ export const RetreatsScreen: React.FC<RetreatsScreenProps> = ({ onNavigate }) =>
               </div>
               <div className="neu-inset p-2.5 rounded-xl text-center">
                 <span className="material-symbols-outlined text-[#BA9470] text-[20px]">psychology</span>
-                <span className="text-[11px] text-[#F0E2C8] block font-semibold mt-0.5">Е. Семерджиди</span>
+                <span className="text-[11px] text-[#F0E2C8] block font-semibold mt-0.5">Психологи EthOSium</span>
                 <span className="text-[9px] text-[#A9B489]">Лекции + 3 разбора</span>
               </div>
               <div className="neu-inset p-2.5 rounded-xl text-center">
