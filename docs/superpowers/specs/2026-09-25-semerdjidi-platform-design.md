@@ -154,6 +154,71 @@ approved investment partner `UNICAP Invest` — not to be confused or merged).
      modeled on `2.html`'s `#manifesto` pattern but deliberately *not* duplicating a second,
      unwired contact form (booking's backend wiring is still an open question, see §8).
 
+## 5b. Supabase content-pipeline automation (this iteration)
+
+**Trigger:** user asked to launch a Supabase-based automation that researches and drafts
+articles/news for publication on the site, on social media, and with partners ("на супабейз
+запусти автоматизацию поиска и разработки статей и новостей для публикации на сайте и в соц
+сетях и у партнёр[ов]").
+
+**Supabase project decision (resolves open question §8.1):** reuse the existing shared
+`vodeco` project (id `cllbxumyagfhtcexqxvh`) rather than provisioning a dedicated project for
+Semerdjidi. Rationale: a new project would trigger a billing-confirmation flow best discussed
+with the user first, and `vodeco` already hosts unrelated tenants (the EvenEsh/UIC site, a
+water-resources dataset) cleanly isolated purely by table-name prefix — the same pattern
+extends naturally to Semerdjidi via a `semerdjidi_` prefix, with no dedicated Postgres schema
+or extra PostgREST schema-exposure config needed.
+
+**What was built:**
+- **`public.semerdjidi_content_drafts`** table (migration
+  `supabase/migrations/20260926062116_semerdjidi_content_pipeline.sql`): `kind`
+  (`article`/`research`/`social_post`), `title`, `subtitle`, `category`, `body`,
+  `social_caption`, `source_url`, `source_citation`, `status` (defaults to
+  `pending_review`), `created_at`, `reviewed_at`, `reviewer_note`. RLS is enabled with exactly
+  one policy — `anon, authenticated` may `select` rows where `status = 'published'`. There is
+  **no insert/update policy for anon or authenticated at all**: every write goes through the
+  Edge Function below using the `service_role` key, which bypasses RLS entirely.
+- **`supabase/functions/semerdjidi-research-drafts/index.ts`** Edge Function (`verify_jwt:
+  true`, since it's an internal/scheduled entry point, not a public one like `even-esh-lead`):
+  on each invocation it asks **Gemini 2.5 Flash**, grounded in live Google Search
+  (`tools: [{ google_search: {} }]`), to find **one** real, externally verifiable
+  psychology/psychoanalysis/mental-health source **or** organizational-psychology / burnout /
+  R&D-business-analytics source (WHO, Gallup, McKinsey, APA, peer-reviewed journals, etc.),
+  and to return it as structured JSON (title, subtitle, category, ~300–450 word body,
+  ≤260-character social caption, source URL, source citation). It is explicitly instructed to
+  never invent a source, statistic, or URL, and to return `kind: "none"` if it can't find a
+  real one; `isValidDraft()` additionally enforces `source_url` matches `^https?:\/\//` before
+  any row is inserted. `fetchRecentSourceUrls()` pulls the last 30 `source_url`s already in the
+  table and feeds them to the prompt as an "already covered, don't repeat" list, so repeated
+  runs don't converge on the same handful of sources. Every successful result is inserted with
+  `status: 'pending_review'` — **the function has no code path that ever sets `status:
+  'published'`**. A human always reviews a draft (verifies the source is real and the summary
+  is accurate) in Supabase Studio before flipping it to `published` by hand.
+- **Scheduling** (migration
+  `supabase/migrations/20260926070000_semerdjidi_research_drafts_cron.sql`): a `pg_cron` job,
+  `semerdjidi_research_drafts_weekly`, fires every Monday at 06:00 UTC and calls the function
+  via `pg_net`'s `net.http_post`, authenticated with the project's public anon key (sufficient
+  to satisfy `verify_jwt`; the function's own writes still go through its separately
+  env-injected `service_role` key, unrelated to the caller's token).
+- **Secret:** the function reads `GEMINI_API_KEY` from its environment. This must be set by
+  the user directly in Supabase Dashboard → vodeco → Edge Functions → Secrets (obtained from
+  https://aistudio.google.com/apikey) — no agent ever handles the raw key.
+
+**Explicit non-goals (scoped out of this iteration):** there is **no automated posting** to
+social media or to partners anywhere in this pipeline. `social_caption` is a ready-to-copy
+draft for a human to paste manually into Telegram/social channels once a draft is approved;
+building real posting integrations would require creating accounts and handling credentials,
+which is outside what should be done unilaterally. This is the direct, scope-controlled answer
+to the "публикации... в соц сетях и у партнёров" part of the request — the human-in-the-loop
+review gate is a deliberate safety choice, not a placeholder to be removed later without
+discussion.
+
+**Surfacing on the site:** a "Свежее" (published-drafts) feed section reads
+`status = 'published'` rows directly from `semerdjidi_content_drafts` via a raw client-side
+`fetch` to PostgREST (`${SUPABASE_URL}/rest/v1/semerdjidi_content_drafts?select=...&status=eq.published`),
+the same no-SDK pattern used by the EvenEsh project's `CommentSection.tsx`. This lets reviewed
+automation output appear on the live static site without a full rebuild+redeploy per item.
+
 ## 6. Pages shipped so far
 
 | Route | Status | Notes |
@@ -163,7 +228,7 @@ approved investment partner `UNICAP Invest` — not to be confused or merged).
 | `/specialists` | ✅ deployed | Full specialist profiles, linked to their programs |
 | `/partners` | ✅ deployed | Partner cards + AMAImedia/AI-model callout |
 | `/retreats` | ✅ deployed | Full retreat detail cards with day-by-day program |
-| `/journal` | ✅ deployed | Full articles + research papers inline (no dynamic `[slug]` routes yet — content volume doesn't justify it) |
+| `/journal` | ✅ deployed | Full articles + research papers inline, plus a **«Свежее»** feed of `published` automation drafts fetched live from Supabase (no dynamic `[slug]` routes yet — content volume doesn't justify it) |
 | `/test` | ✅ deployed | Client-side 6-question quiz → score-banded recommendation (consultation / 3-month track / retreat) |
 | `/booking` | ✅ deployed | Form UI complete; submission is **not yet wired to a backend** — clearly marked with a `TODO` in `BookingForm.tsx` pending subsystem 2 (Supabase) |
 | `/onboarding` | ✅ deployed | 3-step flow: intro → method → path picker (individual / couple-family-team / corporate) routing into the rest of the site |
@@ -180,8 +245,8 @@ nav/footer already — placeholders to be filled in the next iteration).
 
 ## 8. Open questions for the user
 
-1. Supabase: reuse the existing `vodeco` project (adding new tables/functions there) or spin
-   up a dedicated Supabase project for Semerdjidi?
+1. ~~Supabase: reuse the existing `vodeco` project or spin up a dedicated one?~~ **Resolved
+   this iteration:** reuse `vodeco`, isolated via `semerdjidi_`-prefixed tables — see §5b.
 2. Booking form destination: plain leads table, or should it also trigger a Telegram
    notification (via bot) once the bot exists?
 3. `/whitepaper` — confirm scope: is this strictly the investment/architecture material that
@@ -189,3 +254,7 @@ nav/footer already — placeholders to be filled in the next iteration).
    AI-model product's technical description?
 4. Specialist-matching: should `/test` eventually branch into specialist recommendations (not
    just program-tier recommendations) once specialist capacity data exists?
+5. Content-pipeline cadence and review workflow (new): is weekly the right cadence for
+   `semerdjidi-research-drafts`, or should it run more/less often? And who reviews/publishes
+   drafts in Supabase Studio — should a lightweight admin UI be built for this instead of
+   asking a human to use Studio directly?
