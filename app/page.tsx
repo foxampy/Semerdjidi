@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { PROGRAMS } from '@/content/programs';
 import { SPECIALISTS } from '@/content/specialists';
 import { RETREATS } from '@/content/retreats';
+import { DIRECTION_MODULES } from '@/content/directions';
+import { RESEARCH_PAPERS } from '@/content/journal';
 import { partners, site } from '@/lib/site';
 
 export default function HomePage() {
@@ -71,6 +73,53 @@ export default function HomePage() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Directions network map */}
+      <section className="mx-auto max-w-[1400px] px-5 py-16 md:px-10">
+        <div className="mb-10 max-w-2xl space-y-3">
+          <span className="label-caps text-[11px] text-[color:var(--color-outline)]">Карта направлений</span>
+          <h2 className="font-[family-name:var(--font-display)] text-3xl text-[color:var(--color-on-background)] md:text-4xl">
+            Четыре модуля вокруг одного центра
+          </h2>
+          <p className="text-[color:var(--color-on-surface-variant)]">
+            Это не список услуг, а карта охвата практики — от клинической работы с человеком до исследовательской
+            работы с организацией. Каждый узел собран вокруг специалиста-якоря.
+          </p>
+        </div>
+
+        <div className="relative">
+          {/* Core node */}
+          <div className="surface-card glow-moss mx-auto mb-6 flex max-w-xs flex-col items-center gap-1 p-6 text-center">
+            <span className="label-caps text-[10px] text-[color:var(--color-outline)]">Центр</span>
+            <span className="font-[family-name:var(--font-display)] text-xl text-[color:var(--color-on-background)]">
+              {site.name}
+            </span>
+          </div>
+          <div className="hairline mx-auto mb-6 max-w-4xl" />
+
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {DIRECTION_MODULES.map((module) => (
+              <div key={module.id} className="surface-card flex flex-col gap-3 p-6">
+                <div>
+                  <span className="label-caps text-[10px] text-[color:var(--color-primary)]">{module.tagline}</span>
+                  <h3 className="mt-1 font-[family-name:var(--font-display)] text-lg text-[color:var(--color-on-background)]">
+                    {module.title}
+                  </h3>
+                </div>
+                <p className="text-sm text-[color:var(--color-on-surface-variant)]">{module.description}</p>
+                <ul className="mt-auto space-y-1.5 border-t border-[color:var(--color-outline-variant)] pt-3 text-xs text-[color:var(--color-on-surface-variant)]">
+                  {module.directions.map((direction) => (
+                    <li key={direction} className="flex gap-2">
+                      <span className="text-[color:var(--color-primary)]">—</span>
+                      {direction}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -178,6 +227,49 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Research / publications teaser */}
+      <section className="mx-auto max-w-[1400px] px-5 py-16 md:px-10">
+        <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
+          <div className="max-w-xl space-y-3">
+            <span className="label-caps text-[11px] text-[color:var(--color-outline)]">Исследования</span>
+            <h2 className="font-[family-name:var(--font-display)] text-3xl text-[color:var(--color-on-background)] md:text-4xl">
+              Научная точность вместо домыслов
+            </h2>
+            <p className="text-[color:var(--color-on-surface-variant)]">
+              Мы опираемся на опубликованные исследования — от ВОЗ и Gallup до региональных работ по Центральной Азии
+              — и честно указываем источник каждой цифры.
+            </p>
+          </div>
+          <Link href="/journal" className="btn-ghost px-5 py-2.5 text-xs label-caps">
+            Все исследования
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+          {RESEARCH_PAPERS.slice(0, 3).map((paper) => (
+            <a
+              key={paper.id}
+              href={paper.sourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="surface-card glow-moss flex flex-col gap-3 p-6 transition-transform hover:-translate-y-1"
+            >
+              <div className="flex items-center justify-between text-xs text-[color:var(--color-outline)]">
+                <span className="label-caps text-[color:var(--color-primary)]">{paper.year}</span>
+                <span>{paper.collaboration}</span>
+              </div>
+              <h3 className="font-[family-name:var(--font-display)] text-lg text-[color:var(--color-on-background)]">
+                {paper.title}
+              </h3>
+              <p className="text-sm text-[color:var(--color-on-surface-variant)]">{paper.abstract}</p>
+              <span className="label-caps mt-auto border-t border-[color:var(--color-outline-variant)] pt-4 text-[10px] text-[color:var(--color-secondary)]">
+                Читать источник →
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
+
       {/* Test CTA banner */}
       <section className="mx-auto max-w-[1400px] px-5 py-16 md:px-10">
         <div className="surface-card flex flex-col items-center justify-between gap-6 p-8 sm:flex-row sm:p-12">
@@ -219,6 +311,23 @@ export default function HomePage() {
               </a>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Manifesto */}
+      <section className="mx-auto max-w-[1000px] px-5 py-20 text-center md:px-10 md:py-28">
+        <span className="label-caps text-[11px] text-[color:var(--color-outline)]">Манифест</span>
+        <blockquote className="mt-6 font-[family-name:var(--font-display)] text-2xl leading-snug text-[color:var(--color-on-background)] md:text-4xl md:leading-snug">
+          «Мы не измеряем настроение анкетами — мы погружаемся в реальные процессы, будь то психика одного человека
+          или структура целой компании. Точность важнее удобства».
+        </blockquote>
+        <div className="mt-6 label-caps text-xs text-[color:var(--color-outline)]">
+          Екатерина Семерджиди, основатель центра
+        </div>
+        <div className="mt-10 flex justify-center">
+          <Link href="/booking" className="btn-primary px-6 py-3 text-sm label-caps">
+            Оставить заявку
+          </Link>
         </div>
       </section>
     </>

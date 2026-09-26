@@ -89,15 +89,25 @@ export default function JournalPage() {
                     </li>
                   ))}
                 </ul>
-                <div className="flex flex-wrap gap-2 border-t border-[color:var(--color-outline-variant)] pt-4">
-                  {paper.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="label-caps rounded-full border border-[color:var(--color-outline-variant)] px-3 py-1 text-[10px] text-[color:var(--color-on-surface-variant)]"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+                <div className="flex flex-wrap items-center justify-between gap-2 border-t border-[color:var(--color-outline-variant)] pt-4">
+                  <div className="flex flex-wrap gap-2">
+                    {paper.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="label-caps rounded-full border border-[color:var(--color-outline-variant)] px-3 py-1 text-[10px] text-[color:var(--color-on-surface-variant)]"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <a
+                    href={paper.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="label-caps shrink-0 text-[10px] text-[color:var(--color-secondary)] underline-offset-4 hover:underline"
+                  >
+                    Читать источник →
+                  </a>
                 </div>
               </div>
             ))}

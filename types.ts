@@ -103,11 +103,24 @@ export interface ResearchPaper {
   id: string;
   title: string;
   subtitle: string;
+  /** Издание и авторы источника, напр. "World Psychiatry · Leichsenring et al." */
   collaboration: string;
   year: string;
   tags: string[];
   abstract: string;
   findings: string[];
+  /** Ссылка на оригинальную публикацию — обязательна для внешних источников. */
+  sourceUrl: string;
+}
+
+/** Узел карты направлений центра — используется в сетевой секции на главной странице. */
+export interface DirectionModule {
+  id: string;
+  title: string;
+  tagline: string;
+  description: string;
+  directions: string[];
+  specialistIds: string[];
 }
 
 export interface TestQuestion {

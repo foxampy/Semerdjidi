@@ -88,8 +88,22 @@ shapes), following the same content-as-data pattern as the EvenEsh main site:
     животные". `pets` was added as a new `CollectiveCategory` member beyond what the legacy
     repo had, to ground the "animals" module request concretely rather than leaving it vague.
 - `content/retreats.ts` — 2 retreats with day-by-day programs.
-- `content/journal.ts` — 3 articles + 2 research papers (one of the papers explicitly
-  attributed to the UIC collaboration).
+- `content/journal.ts` — **research-grounded as of this iteration**: 5 articles (2 new:
+  `art-burnout-systemic-risk`, `art-uzbek-leadership-conflict`) + 8 research papers, every one
+  citing a real, externally verifiable publication via a mandatory `sourceUrl` field (WHO,
+  Gallup, McKinsey, *World Psychiatry*, *Frontiers in Psychology*, *Scientific Reports*, WHO
+  Environmental Noise Guidelines, executive-coaching meta-analysis in *AMLE*). No invented
+  statistics remain — the previous 2 placeholder studies were replaced outright. Each
+  `ResearchPaper` card on `/journal` and on the homepage teaser links out to its source with a
+  "Читать источник →" link; the `collaboration` field now holds "издание · авторы" rather than
+  a fictional in-house/partner study name, making clear these are curated external sources, not
+  center-produced research.
+- `content/directions.ts` — **new**: `DIRECTION_MODULES`, 4 nodes (Клиническая практика · Тело
+  и профилактика · Организации и R&D · Образование и супервизия), each grouping concrete
+  modalities around an anchor specialist. This is the direct, scope-controlled answer to
+  "модуль психологии и психоаналитики всех направлений Semerdjidi" — implemented as a
+  homepage-embedded network-map section rather than a new route, to avoid overbuilding a
+  full directions catalog before real demand is validated.
 - `content/test.ts` — 6-question personal-environment assessment, domain-tagged.
 - `lib/site.ts` — single source for site metadata, nav, footer links, and the **partners**
   list: UIC, Realting.uz, UNICAP Invest, AMAImedia (only these four — no partnership is
@@ -102,11 +116,49 @@ shapes), following the same content-as-data pattern as the EvenEsh main site:
   concrete catalog entry (`prog-personal-ai-model`, tied explicitly to AMAImedia) plus the
   `pets` collective module, instead of open-ended speculative product copy.
 
+## 5a. R&D / business-analytics repositioning + UX restructuring (this iteration)
+
+**Trigger:** user asked to (a) actually research and cite real professional/scientific
+literature, (b) lead more with R&D/business-analytics services ("исследований и разработок R&D
+и бизнес через погружение и аналитику запроса и процессов"), (c) fully surface the
+psychology/psychoanalysis modality coverage, and (d) "correct the UX/UI" to be like an old HTML
+mockup, `2.html` (from `F:\EvenEsh\Психологический центр Семерджиди\`).
+
+**Resolution of the `2.html` ambiguity:** `2.html` (and its sibling `1.html`) belong to a
+previously-discarded "Psycho-Biological R&D / venture" concept line — OPM-биосенсоры,
+нейрогравитация, a DAO investment pool (`UNICAPinvest`), and partners `LabForge`/`ArkheOSium`/
+Ташкентский НИИ психологии — content that was explicitly cut earlier in this project's history
+as "absurd" sci-fi framing, kept out of the main narrative. However, `2.html`'s color tokens,
+typography, and several *structural* section patterns (a network-style module map, a
+research/preprints archive, a closing manifesto+CTA section) are byte-identical to the already
+-approved `DESIGN.md` "Biological Network Maps" pattern and visually consistent with the live
+site. Decision taken: reuse the **structural UX patterns only**, populate them with **real
+researched content**, and do **not** revive the sci-fi copy, DAO/investment framing, or the
+discarded partner list. Partners remain exactly UIC / Realting.uz / UNICAP Invest / AMAImedia
+(the DAO fund `UNICAPinvest` mentioned in `2.html` is a different, discarded concept from the
+approved investment partner `UNICAP Invest` — not to be confused or merged).
+
+**Concrete changes shipped:**
+- `content/programs.ts`: `prog-healthy-company-audit` rewritten to foreground the "погружение в
+  процессы вместо анкет" R&D/business-analytics angle, now citing McKinsey's *State of
+  Organizations 2023* (two-thirds of leaders see their org as overly complex) and Gallup's
+  *State of the Global Workplace 2024* (managers explain ~70% of engagement variance) as the
+  rationale for the immersion-based audit methodology.
+- `app/page.tsx` restructured with three new sections (all built from existing DESIGN.md
+  utilities — `.surface-card`, `.glow-moss`, `.hairline` — no new visual language introduced):
+  1. **Directions network map** — core "Semerdjidi" node + 4 `DIRECTION_MODULES` cards, placed
+     right after the existing method-chain teaser.
+  2. **Research/publications teaser** — `RESEARCH_PAPERS.slice(0, 3)` as outbound-linking
+     cards, modeled on `2.html`'s `#news-preprints` pattern, placed after the retreats teaser.
+  3. **Manifesto** — closing pull-quote + attribution + a single CTA button to `/booking`,
+     modeled on `2.html`'s `#manifesto` pattern but deliberately *not* duplicating a second,
+     unwired contact form (booking's backend wiring is still an open question, see §8).
+
 ## 6. Pages shipped so far
 
 | Route | Status | Notes |
 |---|---|---|
-| `/` | ✅ deployed | Hero, method chain, program/specialist/retreat teasers, test CTA, partner strip |
+| `/` | ✅ deployed | Hero, method chain, **directions network map**, program/specialist/retreat teasers, **research teaser**, test CTA, partner strip, **manifesto+CTA** |
 | `/programs` | ✅ deployed | Full catalog by category, 1–12mo plan cards, collective modules grid |
 | `/specialists` | ✅ deployed | Full specialist profiles, linked to their programs |
 | `/partners` | ✅ deployed | Partner cards + AMAImedia/AI-model callout |
