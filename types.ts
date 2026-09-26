@@ -130,6 +130,25 @@ export interface TestQuestion {
   options: { label: string; score: number }[];
 }
 
+/**
+ * Опубликованный черновик из автоматизации `semerdjidi-research-drafts`
+ * (Supabase, таблица `semerdjidi_content_drafts`, читается напрямую через
+ * PostgREST — см. components/journal/RecentDrafts.tsx). Черновик становится
+ * видимым на сайте только после того, как человек проверил источник и
+ * вручную перевёл статус в `published` — эта запись всегда уже прошла ревью.
+ */
+export interface PublishedContentDraft {
+  id: string;
+  kind: 'article' | 'research' | 'social_post';
+  title: string;
+  subtitle: string | null;
+  category: string | null;
+  body: string;
+  source_url: string | null;
+  source_citation: string | null;
+  created_at: string;
+}
+
 export interface BookingFormData {
   interest: 'Консультация' | 'Группа' | 'Обучение' | 'Супервизия' | 'Ретрит' | 'Корпоративная программа' | 'Другое';
   format: 'Очно' | 'Онлайн' | 'Не знаю';

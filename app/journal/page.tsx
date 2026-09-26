@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { JOURNAL_ARTICLES, RESEARCH_PAPERS } from '@/content/journal';
+import { RecentDrafts } from '@/components/journal/RecentDrafts';
 
 export const metadata: Metadata = {
   title: 'Журнал и исследования',
@@ -114,6 +115,8 @@ export default function JournalPage() {
           </div>
         </div>
       </section>
+
+      <RecentDrafts />
 
       <section className="mx-auto max-w-[1400px] px-5 py-16 md:px-10">
         <div className="surface-card flex flex-col items-center justify-between gap-6 p-8 sm:flex-row sm:p-12">
