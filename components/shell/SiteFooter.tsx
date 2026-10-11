@@ -3,7 +3,7 @@ import { footerLinks, nav, site } from '@/lib/site';
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-[color:var(--color-outline-variant)] bg-[color:var(--color-surface-container-lowest)]">
+    <footer className="bg-[color:var(--color-surface-container-lowest)]">
       <div className="mx-auto grid max-w-[1400px] grid-cols-1 gap-10 px-5 py-14 sm:grid-cols-2 md:px-10 lg:grid-cols-4">
         <div className="space-y-3">
           <div className="font-[family-name:var(--font-display)] text-xl text-[color:var(--color-on-background)]">

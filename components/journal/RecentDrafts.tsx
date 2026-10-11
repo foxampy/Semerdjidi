@@ -51,54 +51,57 @@ export function RecentDrafts() {
   if (!drafts || drafts.length === 0) return null;
 
   return (
-    <section className="border-t border-[color:var(--color-outline-variant)] bg-[color:var(--color-surface-container-lowest)]">
-      <div className="mx-auto max-w-[1400px] px-5 py-16 md:px-10">
-        <div className="mb-8 flex flex-wrap items-end justify-between gap-3">
-          <div>
-            <span className="label-caps text-[11px] text-[color:var(--color-outline)]">Свежее</span>
-            <h2 className="mt-2 font-[family-name:var(--font-display)] text-2xl text-[color:var(--color-on-background)] md:text-3xl">
-              Из ленты исследований центра
-            </h2>
+    <>
+      <div className="hairline" />
+      <section className="bg-[color:var(--color-surface-container-lowest)]">
+        <div className="mx-auto max-w-[1400px] px-5 py-16 md:px-10">
+          <div className="mb-8 flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <span className="label-caps text-[11px] text-[color:var(--color-outline)]">Свежее</span>
+              <h2 className="mt-2 font-[family-name:var(--font-display)] text-2xl text-[color:var(--color-on-background)] md:text-3xl">
+                Из ленты исследований центра
+              </h2>
+            </div>
+            <p className="max-w-sm text-sm text-[color:var(--color-on-surface-variant)]">
+              Находки из мира психологии, психоанализа и организационной аналитики — проверены редакцией перед публикацией.
+            </p>
           </div>
-          <p className="max-w-sm text-sm text-[color:var(--color-on-surface-variant)]">
-            Находки из мира психологии, психоанализа и организационной аналитики — проверены редакцией перед публикацией.
-          </p>
-        </div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {drafts.map((draft) => (
-            <article key={draft.id} className="surface-card flex flex-col gap-3 p-6">
-              <div className="flex items-center justify-between text-xs text-[color:var(--color-outline)]">
-                <span className="label-caps text-[color:var(--color-primary)]">
-                  {draft.category ?? KIND_LABEL[draft.kind]}
-                </span>
-                <span>{formatWhen(draft.created_at)}</span>
-              </div>
-              <div>
-                <h3 className="font-[family-name:var(--font-display)] text-lg text-[color:var(--color-on-background)]">
-                  {draft.title}
-                </h3>
-                {draft.subtitle && (
-                  <p className="mt-1 text-sm text-[color:var(--color-on-surface-variant)]">{draft.subtitle}</p>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {drafts.map((draft) => (
+              <article key={draft.id} className="surface-card flex flex-col gap-3 p-6">
+                <div className="flex items-center justify-between text-xs text-[color:var(--color-outline)]">
+                  <span className="label-caps text-[color:var(--color-primary)]">
+                    {draft.category ?? KIND_LABEL[draft.kind]}
+                  </span>
+                  <span>{formatWhen(draft.created_at)}</span>
+                </div>
+                <div>
+                  <h3 className="font-[family-name:var(--font-display)] text-lg text-[color:var(--color-on-background)]">
+                    {draft.title}
+                  </h3>
+                  {draft.subtitle && (
+                    <p className="mt-1 text-sm text-[color:var(--color-on-surface-variant)]">{draft.subtitle}</p>
+                  )}
+                </div>
+                <p className="line-clamp-4 text-sm leading-relaxed text-[color:var(--color-on-surface-variant)]">
+                  {draft.body}
+                </p>
+                {draft.source_url && (
+                  <a
+                    href={draft.source_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="label-caps mt-auto pt-2 text-[10px] text-[color:var(--color-secondary)] underline-offset-4 hover:underline"
+                  >
+                    {draft.source_citation ?? 'Читать источник'} →
+                  </a>
                 )}
-              </div>
-              <p className="line-clamp-4 text-sm leading-relaxed text-[color:var(--color-on-surface-variant)]">
-                {draft.body}
-              </p>
-              {draft.source_url && (
-                <a
-                  href={draft.source_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="label-caps mt-auto pt-2 text-[10px] text-[color:var(--color-secondary)] underline-offset-4 hover:underline"
-                >
-                  {draft.source_citation ?? 'Читать источник'} →
-                </a>
-              )}
-            </article>
-          ))}
+              </article>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

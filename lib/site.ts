@@ -19,14 +19,14 @@ export const site = {
     phoneHref: 'tel:+998712001122',
     email: 'welcome@semerdjidi.uz',
     workingHours: 'Пн–Вс: 09:00 — 21:00',
-    telegram: '@semerdjidi_center',
-    telegramUrl: 'https://t.me/semerdjidi_center',
+    telegram: '@Semerdjidi',
+    telegramUrl: 'https://t.me/Semerdjidi',
     instagram: '@semerdjidi.psychology',
     instagramUrl: 'https://instagram.com/semerdjidi.psychology',
   },
   founder: {
     name: 'Екатерина Семерджиди',
-    role: 'Основатель, психоаналитик',
+    role: 'Основатель и CEO центра Semerdjidi, психолог, психоаналитик, педагог, супервизор',
   },
 } as const;
 

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function PartnersPage() {
   return (
     <>
-      <section className="border-b border-[color:var(--color-outline-variant)]">
+      <section>
         <div className="mx-auto max-w-[1400px] px-5 py-16 md:px-10 md:py-24">
           <span className="label-caps text-[11px] text-[color:var(--color-outline)]">Партнёры</span>
           <h1 className="mt-3 max-w-2xl font-[family-name:var(--font-display)] text-4xl leading-[1.12] text-[color:var(--color-on-background)] md:text-5xl">
@@ -22,6 +22,8 @@ export default function PartnersPage() {
           </p>
         </div>
       </section>
+
+      <div className="hairline mx-5 md:mx-10" />
 
       <section className="mx-auto max-w-[1400px] px-5 py-14 md:px-10">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -44,7 +46,7 @@ export default function PartnersPage() {
         </div>
       </section>
 
-      <section className="border-y border-[color:var(--color-outline-variant)] bg-[color:var(--color-surface-container-lowest)]">
+      <section className="bg-[color:var(--color-surface-container-lowest)]">
         <div className="mx-auto max-w-[1400px] px-5 py-16 md:px-10">
           <div className="max-w-2xl space-y-3">
             <span className="label-caps text-[11px] text-[color:var(--color-outline)]">Совместный продукт</span>

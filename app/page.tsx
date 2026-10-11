@@ -7,16 +7,27 @@ import { DIRECTION_MODULES } from '@/content/directions';
 import { RESEARCH_PAPERS } from '@/content/journal';
 import { partners, site } from '@/lib/site';
 
+// Позиции узлов «Метода» вдоль спирали (координаты в системе viewBox 0 0 600 600).
+// dx/dy — смещение подписи относительно узла, чтобы не перекрывать кривую.
+const METHOD_STEPS = [
+  { label: 'Человек', x: 300, y: 220, dx: 0, dy: -40 },
+  { label: 'Отношения', x: 410, y: 250, dx: 55, dy: -18 },
+  { label: 'Команда', x: 460, y: 360, dx: 68, dy: 4 },
+  { label: 'Руководитель', x: 380, y: 470, dx: 20, dy: 42 },
+  { label: 'Организация', x: 230, y: 460, dx: -25, dy: 42 },
+  { label: 'Среда', x: 120, y: 340, dx: -62, dy: -6 },
+] as const;
+
 export default function HomePage() {
   const featuredPrograms = PROGRAMS.filter((p) => p.id !== 'prog-personal-ai-model').slice(0, 3);
 
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden border-b border-[color:var(--color-outline-variant)]">
+      <section className="relative overflow-hidden">
         <div className="mx-auto grid max-w-[1400px] grid-cols-1 items-center gap-12 px-5 py-20 md:px-10 md:py-28 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="space-y-7">
-            <span className="label-caps inline-block rounded-full border border-[color:var(--color-outline-variant)] px-3 py-1 text-[11px] text-[color:var(--color-outline)]">
+            <span className="label-caps inline-block rounded-full bg-[color:var(--color-surface-container)]/70 px-3 py-1 text-[11px] text-[color:var(--color-outline)]">
               Психологический центр · Ташкент
             </span>
             <h1 className="max-w-xl font-[family-name:var(--font-display)] text-4xl leading-[1.1] text-[color:var(--color-on-background)] sm:text-5xl md:text-[56px] md:leading-[1.14]">
@@ -35,19 +46,44 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="relative mx-auto aspect-square w-full max-w-sm">
-            <div className="absolute inset-0 rounded-full bg-[color:var(--color-primary-container)]/10 blur-3xl" />
-            <div className="surface-card relative flex h-full w-full items-center justify-center p-10">
-              <Image
-                src="/brand/logo-main.png"
-                alt={site.name}
-                width={280}
-                height={280}
-                className="h-auto w-full object-contain"
-                priority
-              />
+          <div className="relative mx-auto w-full max-w-sm">
+            <div className="absolute inset-0 rounded-[var(--radius-xl)] bg-[color:var(--color-primary-container)]/10 blur-3xl" />
+            <div className="surface-card relative overflow-hidden p-3">
+              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[var(--radius-lg)]">
+                <Image
+                  src="/brand/ekaterina-semerdjidi.jpg"
+                  alt="Екатерина Семерджиди, основатель центра"
+                  fill
+                  sizes="(min-width: 1024px) 360px, 80vw"
+                  className="object-cover"
+                  priority
+                />
+              </div>
+              <div className="space-y-3 p-4">
+                <div>
+                  <div className="font-[family-name:var(--font-display)] text-lg text-[color:var(--color-on-background)]">
+                    Екатерина Семерджиди
+                  </div>
+                  <div className="label-caps text-[10px] text-[color:var(--color-outline)]">
+                    Основатель центра, психоаналитик, супервизор
+                  </div>
+                </div>
+                <p className="text-sm text-[color:var(--color-on-surface-variant)]">
+                  Лично ведёт супервизии и разрабатывает программы центра — от индивидуальной терапии до
+                  корпоративного благополучия.
+                </p>
+                <Link
+                  href="/specialists#ekaterina-semerdjidi"
+                  className="btn-primary inline-block px-5 py-2.5 text-xs label-caps"
+                >
+                  Супервизия и разработка программ
+                </Link>
+              </div>
             </div>
           </div>
+        </div>
+        <div className="mx-auto max-w-[1400px] px-5 md:px-10">
+          <div className="hairline mx-auto max-w-4xl" />
         </div>
       </section>
 
@@ -64,15 +100,109 @@ export default function HomePage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-          {['Человек', 'Отношения', 'Команда', 'Руководитель', 'Организация', 'Среда'].map((step, idx) => (
-            <div key={step} className="surface-card p-4">
-              <div className="label-caps text-[11px] text-[color:var(--color-primary)]">0{idx + 1}</div>
-              <div className="mt-2 font-[family-name:var(--font-display)] text-base text-[color:var(--color-on-background)]">
-                {step}
-              </div>
+        <div className="relative mx-auto aspect-square w-full max-w-2xl py-6 md:max-w-3xl">
+          <svg
+            viewBox="0 0 600 600"
+            preserveAspectRatio="xMidYMid meet"
+            className="absolute inset-0 h-full w-full"
+            aria-hidden="true"
+          >
+            <path
+              d="M300 220 C360 200 380 220 410 250 S460 320 460 360 S410 430 380 470 S300 480 230 460 S150 400 120 340"
+              fill="none"
+              stroke="var(--color-primary-container)"
+              strokeWidth={2}
+              strokeLinecap="round"
+              pathLength={1}
+              className="method-spiral-path"
+            />
+            <path
+              d="M120 340 Q150 250 260 230"
+              fill="none"
+              stroke="var(--color-outline)"
+              strokeWidth={1.5}
+              strokeLinecap="round"
+              pathLength={1}
+              className="method-spiral-return"
+            />
+            {METHOD_STEPS.map((step, idx) => (
+              <g key={step.label}>
+                <circle
+                  cx={step.x}
+                  cy={step.y}
+                  r={16}
+                  fill="var(--color-tertiary)"
+                  className="method-spiral-halo"
+                  style={{ animationDelay: `${idx * 0.4}s` }}
+                />
+                <circle
+                  cx={step.x}
+                  cy={step.y}
+                  r={7}
+                  fill="var(--color-primary)"
+                  className="method-spiral-node"
+                  style={{ animationDelay: `${0.3 + idx * 0.15}s` }}
+                />
+              </g>
+            ))}
+          </svg>
+
+          {METHOD_STEPS.map((step, idx) => (
+            <div
+              key={step.label}
+              className="surface-card absolute flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 whitespace-nowrap px-3 py-1.5"
+              style={{
+                left: `${((step.x + step.dx) / 600) * 100}%`,
+                top: `${((step.y + step.dy) / 600) * 100}%`,
+              }}
+            >
+              <span className="label-caps text-[10px] text-[color:var(--color-primary)]">0{idx + 1}</span>
+              <span className="font-[family-name:var(--font-display)] text-sm text-[color:var(--color-on-background)]">
+                {step.label}
+              </span>
             </div>
           ))}
+
+          <style>{`
+            @keyframes methodSpiralDraw {
+              from { stroke-dashoffset: 1; }
+              to { stroke-dashoffset: 0; }
+            }
+            @keyframes methodSpiralReturn {
+              from { stroke-dashoffset: 0; }
+              to { stroke-dashoffset: -0.08; }
+            }
+            @keyframes methodSpiralNode {
+              from { opacity: 0; transform: scale(0.4); }
+              to { opacity: 1; transform: scale(1); }
+            }
+            @keyframes methodSpiralHalo {
+              0%, 100% { opacity: 0.5; }
+              50% { opacity: 0.12; }
+            }
+            .method-spiral-path {
+              stroke-dasharray: 1;
+              stroke-dashoffset: 1;
+              animation: methodSpiralDraw 2.6s ease-out forwards;
+            }
+            .method-spiral-return {
+              stroke-dasharray: 0.08 0.06;
+              opacity: 0.6;
+              animation: methodSpiralReturn 6s linear infinite;
+            }
+            .method-spiral-node {
+              transform-box: fill-box;
+              transform-origin: center;
+              opacity: 0;
+              animation: methodSpiralNode 0.5s ease-out forwards;
+            }
+            .method-spiral-halo {
+              transform-box: fill-box;
+              transform-origin: center;
+              opacity: 0.5;
+              animation: methodSpiralHalo 4s ease-in-out infinite;
+            }
+          `}</style>
         </div>
       </section>
 
@@ -109,14 +239,17 @@ export default function HomePage() {
                   </h3>
                 </div>
                 <p className="text-sm text-[color:var(--color-on-surface-variant)]">{module.description}</p>
-                <ul className="mt-auto space-y-1.5 border-t border-[color:var(--color-outline-variant)] pt-3 text-xs text-[color:var(--color-on-surface-variant)]">
-                  {module.directions.map((direction) => (
-                    <li key={direction} className="flex gap-2">
-                      <span className="text-[color:var(--color-primary)]">—</span>
-                      {direction}
-                    </li>
-                  ))}
-                </ul>
+                <div className="mt-auto">
+                  <div className="hairline mb-3" />
+                  <ul className="space-y-1.5 text-xs text-[color:var(--color-on-surface-variant)]">
+                    {module.directions.map((direction) => (
+                      <li key={direction} className="flex gap-2">
+                        <span className="text-[color:var(--color-primary)]">—</span>
+                        {direction}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             ))}
           </div>
@@ -124,7 +257,7 @@ export default function HomePage() {
       </section>
 
       {/* Programs teaser */}
-      <section className="border-y border-[color:var(--color-outline-variant)] bg-[color:var(--color-surface-container-lowest)]">
+      <section className="bg-[color:var(--color-surface-container-lowest)]">
         <div className="mx-auto max-w-[1400px] px-5 py-16 md:px-10">
           <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
             <div className="max-w-xl space-y-3">
@@ -152,9 +285,12 @@ export default function HomePage() {
                   </h3>
                   <p className="text-sm text-[color:var(--color-on-surface-variant)]">{program.shortDescription}</p>
                 </div>
-                <div className="flex items-center justify-between border-t border-[color:var(--color-outline-variant)] pt-4 text-xs text-[color:var(--color-outline)]">
-                  <span>{program.duration}</span>
-                  <span className="label-caps text-[color:var(--color-secondary)]">{program.price}</span>
+                <div>
+                  <div className="hairline mb-4" />
+                  <div className="flex items-center justify-between text-xs text-[color:var(--color-outline)]">
+                    <span>{program.duration}</span>
+                    <span className="label-caps text-[color:var(--color-secondary)]">{program.price}</span>
+                  </div>
                 </div>
               </Link>
             ))}
@@ -195,7 +331,7 @@ export default function HomePage() {
       </section>
 
       {/* Retreats teaser */}
-      <section className="border-y border-[color:var(--color-outline-variant)] bg-[color:var(--color-surface-container-lowest)]">
+      <section className="bg-[color:var(--color-surface-container-lowest)]">
         <div className="mx-auto max-w-[1400px] px-5 py-16 md:px-10">
           <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
             <div className="max-w-xl space-y-3">
@@ -217,9 +353,12 @@ export default function HomePage() {
                   {retreat.title}
                 </h3>
                 <p className="text-sm text-[color:var(--color-on-surface-variant)]">{retreat.shortDescription}</p>
-                <div className="flex items-center justify-between border-t border-[color:var(--color-outline-variant)] pt-4 text-xs text-[color:var(--color-outline)]">
-                  <span>{retreat.location}</span>
-                  <span className="label-caps text-[color:var(--color-secondary)]">{retreat.price}</span>
+                <div>
+                  <div className="hairline mb-4" />
+                  <div className="flex items-center justify-between text-xs text-[color:var(--color-outline)]">
+                    <span>{retreat.location}</span>
+                    <span className="label-caps text-[color:var(--color-secondary)]">{retreat.price}</span>
+                  </div>
                 </div>
               </div>
             ))}
@@ -262,9 +401,12 @@ export default function HomePage() {
                 {paper.title}
               </h3>
               <p className="text-sm text-[color:var(--color-on-surface-variant)]">{paper.abstract}</p>
-              <span className="label-caps mt-auto border-t border-[color:var(--color-outline-variant)] pt-4 text-[10px] text-[color:var(--color-secondary)]">
-                Читать источник →
-              </span>
+              <div className="mt-auto">
+                <div className="hairline mb-4" />
+                <span className="label-caps text-[10px] text-[color:var(--color-secondary)]">
+                  Читать источник →
+                </span>
+              </div>
             </a>
           ))}
         </div>
@@ -289,7 +431,7 @@ export default function HomePage() {
       </section>
 
       {/* Partners strip */}
-      <section className="border-t border-[color:var(--color-outline-variant)] bg-[color:var(--color-surface-container-lowest)]">
+      <section className="bg-[color:var(--color-surface-container-lowest)]">
         <div className="mx-auto max-w-[1400px] px-5 py-14 md:px-10">
           <div className="mb-8 space-y-2">
             <span className="label-caps text-[11px] text-[color:var(--color-outline)]">Партнёры</span>

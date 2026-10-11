@@ -25,7 +25,7 @@ export default function ProgramsPage() {
   return (
     <>
       {/* Hero */}
-      <section className="border-b border-[color:var(--color-outline-variant)]">
+      <section>
         <div className="mx-auto max-w-[1400px] px-5 py-16 md:px-10 md:py-24">
           <span className="label-caps text-[11px] text-[color:var(--color-outline)]">Программы</span>
           <h1 className="mt-3 max-w-2xl font-[family-name:var(--font-display)] text-4xl leading-[1.12] text-[color:var(--color-on-background)] md:text-5xl">
@@ -37,6 +37,8 @@ export default function ProgramsPage() {
           </p>
         </div>
       </section>
+
+      <div className="hairline" />
 
       {/* Program cards by category */}
       {categories.map((category) => (
@@ -56,17 +58,21 @@ export default function ProgramsPage() {
                 </div>
 
                 {program.modules && (
-                  <ul className="space-y-1 border-t border-[color:var(--color-outline-variant)] pt-3 text-sm text-[color:var(--color-on-surface-variant)]">
-                    {program.modules.map((m) => (
-                      <li key={m} className="flex gap-2">
-                        <span className="text-[color:var(--color-primary)]">—</span>
-                        {m}
-                      </li>
-                    ))}
-                  </ul>
+                  <>
+                    <div className="hairline mb-3" />
+                    <ul className="space-y-1 text-sm text-[color:var(--color-on-surface-variant)]">
+                      {program.modules.map((m) => (
+                        <li key={m} className="flex gap-2">
+                          <span className="text-[color:var(--color-primary)]">—</span>
+                          {m}
+                        </li>
+                      ))}
+                    </ul>
+                  </>
                 )}
 
-                <div className="flex items-center justify-between border-t border-[color:var(--color-outline-variant)] pt-4 text-xs text-[color:var(--color-outline)]">
+                <div className="hairline mb-4" />
+                <div className="flex items-center justify-between text-xs text-[color:var(--color-outline)]">
                   <span>{program.duration}</span>
                   <span className="label-caps text-[color:var(--color-secondary)]">{program.price}</span>
                 </div>
@@ -87,7 +93,7 @@ export default function ProgramsPage() {
       ))}
 
       {/* Full program plans (1-12+ months) */}
-      <section className="border-y border-[color:var(--color-outline-variant)] bg-[color:var(--color-surface-container-lowest)]">
+      <section className="bg-[color:var(--color-surface-container-lowest)]">
         <div className="mx-auto max-w-[1400px] px-5 py-16 md:px-10">
           <div className="mb-10 max-w-2xl space-y-3">
             <span className="label-caps text-[11px] text-[color:var(--color-outline)]">Комплексные треки</span>
@@ -116,7 +122,8 @@ export default function ProgramsPage() {
                   <p className="mt-1 text-sm text-[color:var(--color-on-surface-variant)]">{plan.focus}</p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-x-4 gap-y-2 border-t border-[color:var(--color-outline-variant)] pt-4 text-xs text-[color:var(--color-on-surface-variant)]">
+                <div className="hairline mb-4" />
+                <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-xs text-[color:var(--color-on-surface-variant)]">
                   <div>{plan.individualSessionsCount} инд. сессий</div>
                   <div>{plan.groupSessionsCount} групповых</div>
                   <div>{plan.retreatsCount} ретрит(ов)</div>
@@ -124,7 +131,8 @@ export default function ProgramsPage() {
                   <div>{plan.lecturesAndSeminarsCount} лекций/семинаров</div>
                 </div>
 
-                <div className="space-y-2 border-t border-[color:var(--color-outline-variant)] pt-4">
+                <div className="hairline mb-4" />
+                <div className="space-y-2">
                   {plan.phases.map((phase) => (
                     <div key={phase.month} className="text-xs">
                       <span className="label-caps text-[color:var(--color-secondary)]">{phase.month}</span>
@@ -142,7 +150,8 @@ export default function ProgramsPage() {
                   ))}
                 </ul>
 
-                <div className="mt-auto flex items-center justify-between border-t border-[color:var(--color-outline-variant)] pt-4 text-xs text-[color:var(--color-outline)]">
+                <div className="hairline mb-4" />
+                <div className="mt-auto flex items-center justify-between text-xs text-[color:var(--color-outline)]">
                   <span>{plan.idealFor}</span>
                 </div>
                 <div className="flex items-center justify-between text-sm">
@@ -183,7 +192,8 @@ export default function ProgramsPage() {
               </h3>
               <p className="text-sm text-[color:var(--color-on-surface-variant)]">{module.subtitle}</p>
               <p className="text-xs text-[color:var(--color-outline)]">{module.targetAudience}</p>
-              <ul className="space-y-1 border-t border-[color:var(--color-outline-variant)] pt-3 text-xs text-[color:var(--color-on-surface-variant)]">
+              <div className="hairline mb-3" />
+              <ul className="space-y-1 text-xs text-[color:var(--color-on-surface-variant)]">
                 {module.results.map((r) => (
                   <li key={r} className="flex gap-2">
                     <span className="text-[color:var(--color-primary)]">—</span>
@@ -197,7 +207,7 @@ export default function ProgramsPage() {
       </section>
 
       {/* CTA */}
-      <section className="border-t border-[color:var(--color-outline-variant)] bg-[color:var(--color-surface-container-lowest)]">
+      <section className="bg-[color:var(--color-surface-container-lowest)]">
         <div className="mx-auto max-w-[1400px] px-5 py-16 md:px-10">
           <div className="surface-card flex flex-col items-center justify-between gap-6 p-8 sm:flex-row sm:p-12">
             <div className="max-w-lg space-y-2">

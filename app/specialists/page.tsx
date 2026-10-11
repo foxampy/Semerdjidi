@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function SpecialistsPage() {
   return (
     <>
-      <section className="border-b border-[color:var(--color-outline-variant)]">
+      <section>
         <div className="mx-auto max-w-[1400px] px-5 py-16 md:px-10 md:py-24">
           <span className="label-caps text-[11px] text-[color:var(--color-outline)]">Специалисты</span>
           <h1 className="mt-3 max-w-2xl font-[family-name:var(--font-display)] text-4xl leading-[1.12] text-[color:var(--color-on-background)] md:text-5xl">
@@ -23,6 +23,8 @@ export default function SpecialistsPage() {
           </p>
         </div>
       </section>
+
+      <div className="hairline mx-5 md:mx-10" />
 
       <section className="mx-auto max-w-[1400px] px-5 py-14 md:px-10">
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
@@ -42,7 +44,8 @@ export default function SpecialistsPage() {
 
               <p className="text-sm leading-relaxed text-[color:var(--color-on-surface-variant)]">{specialist.bio}</p>
 
-              <div className="grid grid-cols-2 gap-x-4 gap-y-3 border-t border-[color:var(--color-outline-variant)] pt-4 text-xs">
+              <div className="hairline" />
+              <div className="grid grid-cols-2 gap-x-4 gap-y-3 pt-4 text-xs">
                 <div>
                   <div className="label-caps text-[10px] text-[color:var(--color-outline)]">Специализация</div>
                   <div className="mt-1 text-[color:var(--color-on-surface-variant)]">{specialist.specialization}</div>
@@ -69,18 +72,20 @@ export default function SpecialistsPage() {
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-2 border-t border-[color:var(--color-outline-variant)] pt-4">
+              <div className="hairline" />
+              <div className="flex flex-wrap gap-2 pt-4">
                 {specialist.directions.map((d) => (
                   <span
                     key={d}
-                    className="label-caps rounded-full border border-[color:var(--color-outline-variant)] px-3 py-1 text-[10px] text-[color:var(--color-on-surface-variant)]"
+                    className="label-caps rounded-full px-3 py-1 text-[10px] text-[color:var(--color-on-surface-variant)]"
                   >
                     {d}
                   </span>
                 ))}
               </div>
 
-              <div className="space-y-2 border-t border-[color:var(--color-outline-variant)] pt-4">
+              <div className="hairline" />
+              <div className="space-y-2 pt-4">
                 <div className="label-caps text-[10px] text-[color:var(--color-outline)]">Программы</div>
                 <div className="flex flex-col gap-1">
                   {specialist.programs.map((programId) => {
@@ -107,7 +112,7 @@ export default function SpecialistsPage() {
         </div>
       </section>
 
-      <section className="border-t border-[color:var(--color-outline-variant)] bg-[color:var(--color-surface-container-lowest)]">
+      <section className="bg-[color:var(--color-surface-container-lowest)]">
         <div className="mx-auto max-w-[1400px] px-5 py-16 md:px-10">
           <div className="surface-card flex flex-col items-center justify-between gap-6 p-8 sm:flex-row sm:p-12">
             <div className="max-w-lg space-y-2">

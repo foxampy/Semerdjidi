@@ -1,50 +1,61 @@
 @import 'tailwindcss';
 
 /*
- * Токены взяты из DESIGN.md ("Deep Forest Biomorphic & Contemplative
- * Science") и сверены построчно с уже одобренными и задеплоенными HTML-
- * макетами (2.html) — расхождений нет, это единственный источник правды
- * для цвета и типографики веб-приложения. Файлы брендбука (OrchideaPro,
- * Raleway, TenorSans) относятся к печатной айдентике и логотипу, здесь не
- * используются.
+ * Токены переведены на «тёмный мягкий неоморфизм без рамок» по прямому
+ * запросу пользователя (2026-09-26): та же тёмная тема, что и была, но
+ * surface-рамка теперь высчитана из настоящих брендбук-цветов
+ * (F:\EvenEsh\Психологический центр Семерджиди\брендбук\Colors\Colors
+ * RGB.jpg: #404432 олива, #a9b489 шалфей, #f0e2c8 лён, #ba9470 глина,
+ * #503428 шоколад) — а не из произвольного near-black, который был в
+ * DESIGN.md/2.html-черновике. Роли primary/secondary/tertiary НЕ менялись:
+ * это уже было сделано раньше (шоколад/глина доминируют, шалфей — только
+ * точечный tertiary-акцент, см. комментарий ниже) и остаётся в силе.
+ *
+ * Вместо border используются парные soft-shadow (тёмная + тёплая светлая),
+ * имитирующие выпуклые/вдавленные поверхности — см. .surface-card,
+ * .btn-primary, .btn-ghost, .surface-well в @layer utilities.
  */
 @theme {
-  --color-surface: #191305;
-  --color-surface-dim: #191305;
-  --color-surface-bright: #403826;
-  --color-surface-container-lowest: #130d02;
-  --color-surface-container-low: #211b0b;
-  --color-surface-container: #261f0f;
-  --color-surface-container-high: #302918;
-  --color-surface-container-highest: #3c3422;
-  --color-on-surface: #efe1c7;
-  --color-on-surface-variant: #c7c7ba;
-  --color-inverse-surface: #efe1c7;
-  --color-inverse-on-surface: #37301e;
-  --color-outline: #909286;
-  --color-outline-variant: #46483e;
+  /* Surface-рамка — тональная лестница от шоколада (#503428) к чёрному и к
+     льну (#f0e2c8), а не произвольные near-black тона. */
+  --color-surface: #1c120e;
+  --color-surface-dim: #1c120e;
+  --color-surface-bright: #a08b78;
+  --color-surface-container-lowest: #160f0b;
+  --color-surface-container-low: #2c1d16;
+  --color-surface-container: #3c271e;
+  --color-surface-container-high: #503428;
+  --color-surface-container-highest: #806858;
+  --color-on-surface: #f0e2c8;
+  --color-on-surface-variant: #c0ae98;
+  --color-inverse-surface: #f0e2c8;
+  --color-inverse-on-surface: #2c1d16;
+  --color-outline: #a9b489;
+  --color-outline-variant: #46362c;
 
-  --color-primary: #c4d0a3;
-  --color-on-primary: #2b3414;
-  --color-primary-container: #a9b489;
-  --color-on-primary-container: #3d4624;
+  /* Роли не менялись по цвету — см. комментарий выше, только пересчитан
+     surface-фон вокруг них. */
+  --color-primary: #d6ae88;
+  --color-on-primary: #2b1a0f;
+  --color-primary-container: #ba9470;
+  --color-on-primary-container: #3a2415;
 
   --color-secondary: #e9bf98;
   --color-on-secondary: #442b0f;
   --color-secondary-container: #5e4123;
   --color-on-secondary-container: #d6ae88;
 
-  --color-tertiary: #c9cdb5;
-  --color-on-tertiary: #2e3221;
-  --color-tertiary-container: #adb19a;
-  --color-on-tertiary-container: #404432;
+  --color-tertiary: #a9b489;
+  --color-on-tertiary: #232b12;
+  --color-tertiary-container: #3f4a28;
+  --color-on-tertiary-container: #cddaa8;
 
   --color-error: #ffb4ab;
   --color-on-error: #690005;
 
-  --color-background: #191305;
-  --color-on-background: #efe1c7;
-  --color-surface-variant: #3c3422;
+  --color-background: #1c120e;
+  --color-on-background: #f0e2c8;
+  --color-surface-variant: #3c271e;
 
   /* Пять исходных брендбук-цветов — используются точечно (логотип, акценты) */
   --color-brand-olive: #404432;
@@ -53,14 +64,20 @@
   --color-brand-clay: #ba9470;
   --color-brand-umber: #503428;
 
-  --font-display: 'Newsreader', Georgia, serif;
-  --font-body: 'Newsreader', Georgia, serif;
-  --font-label: 'Space Mono', ui-monospace, monospace;
+  /* Мягкие neumorphic-тени: тёплый тёмный + тёплый светлый, вместо border. */
+  --shadow-neu-dark: rgba(8, 4, 2, 0.6);
+  --shadow-neu-light: rgba(160, 139, 120, 0.12);
 
-  --radius-sm: 0.25rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.5rem;
+  /* Реальные шрифты брендбука вместо Newsreader/Space Mono — переменные
+     заданы next/font/local в lib/fonts.ts, здесь только назначение ролей. */
+  --font-display: var(--font-orchidea), Georgia, serif;
+  --font-body: var(--font-raleway), 'Segoe UI', system-ui, sans-serif;
+  --font-label: var(--font-tenor), ui-monospace, monospace;
+
+  --radius-sm: 0.375rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 2rem;
 
   --tracking-label: 0.1em;
 }
@@ -95,9 +112,18 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-primary);
+    outline: 2px solid var(--color-outline);
     outline-offset: 3px;
     border-radius: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
@@ -108,27 +134,50 @@
     text-transform: uppercase;
   }
 
-  /* Порстая тектоническая карточка — базовая поверхность контента */
+  /*
+   * Мягкая выпуклая поверхность — базовая карточка контента. Рамки нет:
+   * границу задаёт пара теней (тёплая тёмная снизу-справа, тёплая светлая
+   * сверху-слева на едва заметном градиенте поверхности), как будто карточка
+   * приподнята над той же тканью, что и фон.
+   */
   .surface-card {
     background: linear-gradient(
       165deg,
       color-mix(in srgb, var(--color-surface-container) 96%, transparent),
       color-mix(in srgb, var(--color-surface-container-low) 96%, transparent)
     );
-    border: 1px solid color-mix(in srgb, var(--color-outline-variant) 70%, transparent);
+    border: none;
     border-radius: var(--radius-lg);
+    box-shadow:
+      10px 10px 22px var(--shadow-neu-dark),
+      -8px -8px 18px var(--shadow-neu-light);
+  }
+
+  /* Вдавленная поверхность — поля форм, «колодцы» вместо инпутов с рамкой. */
+  .surface-well {
+    background: var(--color-surface-container-lowest);
+    border: none;
+    border-radius: var(--radius-md);
+    box-shadow:
+      inset 6px 6px 14px var(--shadow-neu-dark),
+      inset -5px -5px 12px var(--shadow-neu-light);
   }
 
   /* Мягкое биолюминесцентное свечение по ховеру интерактивных узлов */
   .glow-moss:hover {
-    box-shadow: 0 0 24px color-mix(in srgb, var(--color-primary-container) 30%, transparent);
+    box-shadow:
+      10px 10px 22px var(--shadow-neu-dark),
+      -8px -8px 18px var(--shadow-neu-light),
+      0 0 28px color-mix(in srgb, var(--color-tertiary) 25%, transparent);
   }
 
+  /* Тонкий градиентный разделитель — используется вместо сплошного border
+     там, где смена фона секции недостаточна (внутри одной секции). */
   .hairline {
     background: linear-gradient(
       90deg,
       transparent,
-      color-mix(in srgb, var(--color-primary-container) 45%, transparent) 50%,
+      color-mix(in srgb, var(--color-outline) 40%, transparent) 50%,
       transparent
     );
     height: 1px;
@@ -137,23 +186,41 @@
   .btn-primary {
     background-color: var(--color-primary-container);
     color: var(--color-on-primary-container);
-    border: 1px solid color-mix(in srgb, var(--color-primary) 60%, transparent);
+    border: none;
     border-radius: 9999px;
+    box-shadow:
+      6px 6px 14px var(--shadow-neu-dark),
+      -5px -5px 12px var(--shadow-neu-light);
     transition: box-shadow 0.3s ease, transform 0.3s ease;
   }
   .btn-primary:hover {
-    box-shadow: 0 0 24px color-mix(in srgb, var(--color-primary-container) 35%, transparent);
+    box-shadow:
+      4px 4px 10px var(--shadow-neu-dark),
+      -3px -3px 8px var(--shadow-neu-light),
+      0 0 24px color-mix(in srgb, var(--color-primary-container) 35%, transparent);
+    transform: translateY(-1px);
+  }
+  .btn-primary:active {
+    box-shadow:
+      inset 4px 4px 10px var(--shadow-neu-dark),
+      inset -3px -3px 8px var(--shadow-neu-light);
+    transform: translateY(0);
   }
 
   .btn-ghost {
     background-color: transparent;
     color: var(--color-on-surface);
-    border: 1px solid color-mix(in srgb, var(--color-secondary-container) 55%, transparent);
+    border: none;
     border-radius: 9999px;
-    transition: border-color 0.3s ease, background-color 0.3s ease;
+    box-shadow:
+      5px 5px 12px var(--shadow-neu-dark),
+      -4px -4px 10px var(--shadow-neu-light);
+    transition: box-shadow 0.3s ease, background-color 0.3s ease;
   }
   .btn-ghost:hover {
-    border-color: var(--color-secondary);
     background-color: color-mix(in srgb, var(--color-secondary-container) 25%, transparent);
+    box-shadow:
+      3px 3px 8px var(--shadow-neu-dark),
+      -2px -2px 6px var(--shadow-neu-light);
   }
 }

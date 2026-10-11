@@ -47,10 +47,10 @@ export function OnboardingClient() {
         {STEPS.map((label, idx) => (
           <div key={label} className="flex items-center gap-2">
             <span
-              className={`label-caps flex h-7 w-7 items-center justify-center rounded-full border text-[11px] ${
+              className={`label-caps flex h-7 w-7 items-center justify-center rounded-full text-[11px] ${
                 idx <= step
-                  ? 'border-[color:var(--color-primary)] bg-[color:var(--color-primary-container)]/20 text-[color:var(--color-primary)]'
-                  : 'border-[color:var(--color-outline-variant)] text-[color:var(--color-outline)]'
+                  ? 'bg-[color:var(--color-primary-container)]/20 text-[color:var(--color-primary)]'
+                  : 'text-[color:var(--color-outline)]'
               }`}
             >
               {idx + 1}
@@ -84,7 +84,7 @@ export function OnboardingClient() {
           </h2>
           <div className="grid grid-cols-3 gap-3 text-left">
             {['Человек', 'Отношения', 'Команда', 'Руководитель', 'Организация', 'Среда'].map((item, idx) => (
-              <div key={item} className="rounded-[var(--radius-md)] border border-[color:var(--color-outline-variant)] p-3">
+              <div key={item} className="rounded-[var(--radius-md)] bg-[color:var(--color-surface-container-lowest)] p-3">
                 <div className="label-caps text-[10px] text-[color:var(--color-primary)]">0{idx + 1}</div>
                 <div className="mt-1 text-sm text-[color:var(--color-on-background)]">{item}</div>
               </div>

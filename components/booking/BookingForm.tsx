@@ -70,10 +70,10 @@ export function BookingForm() {
               key={option}
               type="button"
               onClick={() => update('interest', option)}
-              className={`label-caps rounded-full border px-3 py-1.5 text-[11px] transition-colors ${
+              className={`label-caps rounded-full px-3 py-1.5 text-[11px] transition-colors ${
                 form.interest === option
-                  ? 'border-[color:var(--color-primary)] bg-[color:var(--color-primary-container)]/20 text-[color:var(--color-primary)]'
-                  : 'border-[color:var(--color-outline-variant)] text-[color:var(--color-on-surface-variant)]'
+                  ? 'bg-[color:var(--color-primary-container)]/20 text-[color:var(--color-primary)]'
+                  : 'text-[color:var(--color-on-surface-variant)]'
               }`}
             >
               {option}
@@ -90,10 +90,10 @@ export function BookingForm() {
               key={option}
               type="button"
               onClick={() => update('format', option)}
-              className={`label-caps rounded-full border px-3 py-1.5 text-[11px] transition-colors ${
+              className={`label-caps rounded-full px-3 py-1.5 text-[11px] transition-colors ${
                 form.format === option
-                  ? 'border-[color:var(--color-primary)] bg-[color:var(--color-primary-container)]/20 text-[color:var(--color-primary)]'
-                  : 'border-[color:var(--color-outline-variant)] text-[color:var(--color-on-surface-variant)]'
+                  ? 'bg-[color:var(--color-primary-container)]/20 text-[color:var(--color-primary)]'
+                  : 'text-[color:var(--color-on-surface-variant)]'
               }`}
             >
               {option}
@@ -113,7 +113,7 @@ export function BookingForm() {
             required
             value={form.name}
             onChange={(e) => update('name', e.target.value)}
-            className="w-full rounded-[var(--radius-md)] border border-[color:var(--color-outline-variant)] bg-[color:var(--color-surface-container)] px-4 py-2.5 text-sm text-[color:var(--color-on-background)] outline-none focus:border-[color:var(--color-primary)]"
+            className="surface-well w-full rounded-[var(--radius-md)] px-4 py-2.5 text-sm text-[color:var(--color-on-background)] outline-none"
           />
         </div>
         <div>
@@ -127,7 +127,7 @@ export function BookingForm() {
             value={form.phone}
             onChange={(e) => update('phone', e.target.value)}
             placeholder="+998 __ ___-__-__"
-            className="w-full rounded-[var(--radius-md)] border border-[color:var(--color-outline-variant)] bg-[color:var(--color-surface-container)] px-4 py-2.5 text-sm text-[color:var(--color-on-background)] outline-none focus:border-[color:var(--color-primary)]"
+            className="surface-well w-full rounded-[var(--radius-md)] px-4 py-2.5 text-sm text-[color:var(--color-on-background)] outline-none"
           />
         </div>
       </div>
@@ -141,7 +141,7 @@ export function BookingForm() {
           type="email"
           value={form.email}
           onChange={(e) => update('email', e.target.value)}
-          className="w-full rounded-[var(--radius-md)] border border-[color:var(--color-outline-variant)] bg-[color:var(--color-surface-container)] px-4 py-2.5 text-sm text-[color:var(--color-on-background)] outline-none focus:border-[color:var(--color-primary)]"
+          className="surface-well w-full rounded-[var(--radius-md)] px-4 py-2.5 text-sm text-[color:var(--color-on-background)] outline-none"
         />
       </div>
 
@@ -154,7 +154,7 @@ export function BookingForm() {
           rows={3}
           value={form.comment}
           onChange={(e) => update('comment', e.target.value)}
-          className="w-full resize-none rounded-[var(--radius-md)] border border-[color:var(--color-outline-variant)] bg-[color:var(--color-surface-container)] px-4 py-2.5 text-sm text-[color:var(--color-on-background)] outline-none focus:border-[color:var(--color-primary)]"
+          className="surface-well w-full resize-none rounded-[var(--radius-md)] px-4 py-2.5 text-sm text-[color:var(--color-on-background)] outline-none"
         />
       </div>
 

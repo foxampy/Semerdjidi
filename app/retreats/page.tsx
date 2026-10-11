@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function RetreatsPage() {
   return (
     <>
-      <section className="border-b border-[color:var(--color-outline-variant)]">
+      <section>
         <div className="mx-auto max-w-[1400px] px-5 py-16 md:px-10 md:py-24">
           <span className="label-caps text-[11px] text-[color:var(--color-outline)]">Ретриты</span>
           <h1 className="mt-3 max-w-2xl font-[family-name:var(--font-display)] text-4xl leading-[1.12] text-[color:var(--color-on-background)] md:text-5xl">
@@ -22,6 +22,8 @@ export default function RetreatsPage() {
           </p>
         </div>
       </section>
+
+      <div className="hairline mx-5 md:mx-10" />
 
       <section className="mx-auto max-w-[1400px] px-5 py-14 md:px-10">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
@@ -45,7 +47,8 @@ export default function RetreatsPage() {
                 {retreat.shortDescription}
               </p>
 
-              <div className="space-y-2 border-t border-[color:var(--color-outline-variant)] pt-4">
+              <div className="hairline" />
+              <div className="space-y-2 pt-4">
                 <div className="label-caps text-[10px] text-[color:var(--color-outline)]">Программа</div>
                 <ul className="space-y-1.5 text-sm text-[color:var(--color-on-surface-variant)]">
                   {retreat.program.map((day) => (
@@ -54,18 +57,20 @@ export default function RetreatsPage() {
                 </ul>
               </div>
 
-              <div className="flex flex-wrap gap-2 border-t border-[color:var(--color-outline-variant)] pt-4">
+              <div className="hairline" />
+              <div className="flex flex-wrap gap-2 pt-4">
                 {retreat.highlights.map((h) => (
                   <span
                     key={h}
-                    className="label-caps rounded-full border border-[color:var(--color-outline-variant)] px-3 py-1 text-[10px] text-[color:var(--color-on-surface-variant)]"
+                    className="label-caps rounded-full px-3 py-1 text-[10px] text-[color:var(--color-on-surface-variant)]"
                   >
                     {h}
                   </span>
                 ))}
               </div>
 
-              <div className="flex items-center justify-between border-t border-[color:var(--color-outline-variant)] pt-4">
+              <div className="hairline" />
+              <div className="flex items-center justify-between pt-4">
                 <span className="label-caps text-base text-[color:var(--color-secondary)]">{retreat.price}</span>
                 <Link href="/booking" className="btn-primary px-5 py-2.5 text-xs label-caps">
                   Забронировать место

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function JournalPage() {
   return (
     <>
-      <section className="border-b border-[color:var(--color-outline-variant)]">
+      <section>
         <div className="mx-auto max-w-[1400px] px-5 py-16 md:px-10 md:py-24">
           <span className="label-caps text-[11px] text-[color:var(--color-outline)]">Журнал</span>
           <h1 className="mt-3 max-w-2xl font-[family-name:var(--font-display)] text-4xl leading-[1.12] text-[color:var(--color-on-background)] md:text-5xl">
@@ -23,6 +23,8 @@ export default function JournalPage() {
           </p>
         </div>
       </section>
+
+      <div className="hairline" />
 
       {/* Articles */}
       <section className="mx-auto max-w-[1400px] px-5 py-14 md:px-10">
@@ -43,17 +45,19 @@ export default function JournalPage() {
                 <p className="mt-1 text-sm text-[color:var(--color-on-surface-variant)]">{article.subtitle}</p>
               </div>
 
-              <blockquote className="border-l-2 border-[color:var(--color-primary)] pl-4 text-sm italic text-[color:var(--color-on-surface-variant)]">
+              <blockquote className="pl-4 text-sm italic text-[color:var(--color-on-surface-variant)]">
                 «{article.pullQuote}»
               </blockquote>
 
-              <div className="space-y-3 border-t border-[color:var(--color-outline-variant)] pt-4 text-sm leading-relaxed text-[color:var(--color-on-surface-variant)]">
+              <div className="hairline mb-4" />
+              <div className="space-y-3 text-sm leading-relaxed text-[color:var(--color-on-surface-variant)]">
                 {article.content.map((paragraph, idx) => (
                   <p key={idx}>{paragraph}</p>
                 ))}
               </div>
 
-              <div className="mt-auto flex items-center justify-between border-t border-[color:var(--color-outline-variant)] pt-4 text-xs text-[color:var(--color-outline)]">
+              <div className="hairline mb-4" />
+              <div className="mt-auto flex items-center justify-between text-xs text-[color:var(--color-outline)]">
                 <span>{article.author}</span>
                 <span>{new Date(article.date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
               </div>
@@ -63,7 +67,7 @@ export default function JournalPage() {
       </section>
 
       {/* Research papers */}
-      <section className="border-t border-[color:var(--color-outline-variant)] bg-[color:var(--color-surface-container-lowest)]">
+      <section className="bg-[color:var(--color-surface-container-lowest)]">
         <div className="mx-auto max-w-[1400px] px-5 py-16 md:px-10">
           <h2 className="mb-8 font-[family-name:var(--font-display)] text-2xl text-[color:var(--color-on-background)] md:text-3xl">
             Исследования
@@ -82,7 +86,8 @@ export default function JournalPage() {
                   <p className="mt-1 text-sm text-[color:var(--color-on-surface-variant)]">{paper.subtitle}</p>
                 </div>
                 <p className="text-sm leading-relaxed text-[color:var(--color-on-surface-variant)]">{paper.abstract}</p>
-                <ul className="space-y-2 border-t border-[color:var(--color-outline-variant)] pt-4 text-sm text-[color:var(--color-on-surface-variant)]">
+                <div className="hairline mb-4" />
+                <ul className="space-y-2 text-sm text-[color:var(--color-on-surface-variant)]">
                   {paper.findings.map((f) => (
                     <li key={f} className="flex gap-2">
                       <span className="text-[color:var(--color-primary)]">—</span>
@@ -90,12 +95,13 @@ export default function JournalPage() {
                     </li>
                   ))}
                 </ul>
-                <div className="flex flex-wrap items-center justify-between gap-2 border-t border-[color:var(--color-outline-variant)] pt-4">
+                <div className="hairline mb-4" />
+                <div className="flex flex-wrap items-center justify-between gap-2">
                   <div className="flex flex-wrap gap-2">
                     {paper.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="label-caps rounded-full border border-[color:var(--color-outline-variant)] px-3 py-1 text-[10px] text-[color:var(--color-on-surface-variant)]"
+                        className="label-caps rounded-full px-3 py-1 text-[10px] text-[color:var(--color-on-surface-variant)]"
                       >
                         {tag}
                       </span>

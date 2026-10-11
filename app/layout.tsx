@@ -2,15 +2,15 @@ import type { Metadata, Viewport } from 'next';
 import { site } from '@/lib/site';
 import { SiteHeader } from '@/components/shell/SiteHeader';
 import { SiteFooter } from '@/components/shell/SiteFooter';
+import { fontVariables } from '@/lib/fonts';
 import './globals.css';
 
 /**
- * Newsreader/Space Mono грузятся напрямую через Google Fonts CSS2 API, а не
- * через next/font/google: у next/font для Newsreader в этой версии Next нет
- * подмножества `cyrillic` (только latin/latin-ext/vietnamese), а сайт на
- * русском. Прямой <link> — тот же способ, что и в уже одобренном и
- * задеплоенном HTML-макете (2.html): Google сам отдаёт нужные unicode-range
- * блоки, включая кириллицу, без явного параметра subset.
+ * Шрифты — реальные файлы брендбука (Orchidea Pro / Raleway / Tenor Sans),
+ * self-hosted через next/font/local (см. lib/fonts.ts), а не Google Fonts:
+ * ни один из трёх не является Google-шрифтом (Orchidea Pro — точно
+ * коммерческий), а кириллица в локальных файлах проверена через fontTools
+ * (cmap) — все три семейства содержат полный диапазон U+0400–U+045F.
  */
 const TITLE = `${site.name} — ${site.subtitle}`;
 
@@ -41,22 +41,14 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#191305',
+  themeColor: '#1c120e',
   width: 'device-width',
   initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ru">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Space+Mono:wght@400;700&display=swap"
-        />
-      </head>
+    <html lang="ru" className={fontVariables}>
       <body>
         <SiteHeader />
         <main>{children}</main>

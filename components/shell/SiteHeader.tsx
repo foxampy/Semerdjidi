@@ -4,7 +4,8 @@ import { nav, site } from '@/lib/site';
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-[color:var(--color-outline-variant)] bg-[color:var(--color-surface-container-lowest)]/90 backdrop-blur-md">
+    <header className="sticky top-0 z-40 bg-[color:var(--color-surface-container-lowest)]/90 backdrop-blur-md">
+      <div className="hairline absolute inset-x-0 bottom-0" />
       <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-4 px-5 py-3 md:px-10">
         <Link href="/" className="flex items-center gap-3">
           <Image
